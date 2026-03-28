@@ -1,6 +1,7 @@
-import { Download, Heart, Shield } from "lucide-react";
+import { Heart } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { NoMarkLogo } from "./NoMarkLogo";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -14,9 +15,7 @@ export function Footer() {
         <div className="grid gap-8 sm:gap-10 grid-cols-2 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-[hsl(var(--chart-2))]">
-                <Download className="h-5 w-5 text-primary-foreground" />
-              </div>
+              <NoMarkLogo className="h-10 w-10 rounded-xl" />
               <span className="text-xl font-bold tracking-tight text-foreground">
                 No<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--chart-2))]">Mark</span>
               </span>
