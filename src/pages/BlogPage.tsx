@@ -1,0 +1,87 @@
+import { useTranslation } from "react-i18next";
+import { Header } from "@/components/nomark/Header";
+import { Footer } from "@/components/nomark/Footer";
+import { Link } from "react-router-dom";
+import { Calendar, ArrowRight } from "lucide-react";
+
+const blogPosts = [
+  {
+    slug: "how-to-download-tiktok-videos-without-watermark",
+    titleKey: "blog.post1Title",
+    excerptKey: "blog.post1Excerpt",
+    date: "2026-03-15",
+    readTime: "5 min",
+    category: "TikTok",
+  },
+  {
+    slug: "best-instagram-reels-downloader-2026",
+    titleKey: "blog.post2Title",
+    excerptKey: "blog.post2Excerpt",
+    date: "2026-03-10",
+    readTime: "4 min",
+    category: "Instagram",
+  },
+  {
+    slug: "save-social-media-videos-hd-quality",
+    titleKey: "blog.post3Title",
+    excerptKey: "blog.post3Excerpt",
+    date: "2026-03-05",
+    readTime: "6 min",
+    category: "Guide",
+  },
+];
+
+export { blogPosts };
+
+export default function BlogPage() {
+  const { t } = useTranslation();
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      <main className="pt-24 pb-16 px-4">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-4">
+              {t('blog.badge')}
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t('blog.title')}</h1>
+            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">{t('blog.subtitle')}</p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {blogPosts.map((post) => (
+              <Link
+                key={post.slug}
+                to={`/blog/${post.slug}`}
+                className="group relative rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 overflow-hidden"
+              >
+                <div className="aspect-video bg-gradient-to-br from-primary/20 to-[hsl(var(--chart-2))]/20 flex items-center justify-center">
+                  <span className="text-xs font-bold uppercase tracking-wider text-primary/60 bg-primary/10 px-3 py-1 rounded-full">
+                    {post.category}
+                  </span>
+                </div>
+                <div className="p-5">
+                  <h2 className="text-base sm:text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                    {t(post.titleKey)}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 mb-4">{t(post.excerptKey)}</p>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="h-3 w-3" />
+                      <span>{post.date}</span>
+                    </div>
+                    <span className="flex items-center gap-1 text-primary font-medium group-hover:gap-2 transition-all">
+                      {t('blog.readMore')} <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
