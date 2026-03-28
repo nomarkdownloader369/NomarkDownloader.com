@@ -20,7 +20,7 @@ export function HeroSection({ onAnalyze, isLoading, error }: HeroSectionProps) {
   };
 
   return (
-    <section className="relative px-4 pt-24 pb-8 md:pt-36 md:pb-12 overflow-hidden">
+    <section className="relative px-4 pt-24 pb-4 md:pt-32 md:pb-6 overflow-hidden">
       {/* Background orbs */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[900px] md:h-[900px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(20, 184, 166, 0.2) 50%, transparent 70%)', filter: 'blur(60px)' }} />
