@@ -67,17 +67,20 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex">
-          <a href="#features" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
+          <Link to="/#features" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
             {t('nav.features')}
-          </a>
-          <a href="#how-it-works" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
+          </Link>
+          <Link to="/#how-it-works" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
             {t('nav.howItWorks')}
-          </a>
-          <a href="#faq" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
+          </Link>
+          <Link to="/#faq" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
             {t('nav.faq')}
-          </a>
+          </Link>
           <Link to="/blog" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
             {t('nav.blog')}
+          </Link>
+          <Link to="/contact" className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50">
+            {t('footer.contactUs')}
           </Link>
         </nav>
 
@@ -130,17 +133,20 @@ export function Header() {
                 <span className="text-sm font-medium">{t('nav.installApp')}</span>
               </Button>
             )}
-            <a href="#features" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link to="/#features" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
               {t('nav.features')}
-            </a>
-            <a href="#how-it-works" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
+            </Link>
+            <Link to="/#how-it-works" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
               {t('nav.howItWorks')}
-            </a>
-            <a href="#faq" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
+            </Link>
+            <Link to="/#faq" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
               {t('nav.faq')}
-            </a>
+            </Link>
             <Link to="/blog" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
               {t('nav.blog')}
+            </Link>
+            <Link to="/contact" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
+              {t('footer.contactUs')}
             </Link>
           </nav>
         </div>
