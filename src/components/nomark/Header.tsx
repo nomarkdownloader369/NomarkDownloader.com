@@ -23,14 +23,28 @@ interface BeforeInstallPromptEvent extends Event {
 export function Header() {
   const { t, i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isInstallable, setIsInstallable] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'ar' ? 'en' : 'ar';
-    i18n.changeLanguage(newLang);
+  const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
+
+  const changeLanguage = (code: string) => {
+    i18n.changeLanguage(code);
+    setIsLangOpen(false);
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setIsLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (window.matchMedia('(display-mode: standalone)').matches) {
@@ -95,16 +109,35 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Language Toggle */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleLanguage}
-            className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground"
-          >
-            <Globe className="h-4 w-4" />
-            <span className="text-xs font-medium">{i18n.language === 'ar' ? 'EN' : 'عربي'}</span>
-          </Button>
+          {/* Language Dropdown */}
+          <div className="relative" ref={langRef}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsLangOpen(!isLangOpen)}
+              className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground"
+            >
+              <span className="text-sm">{currentLang.flag}</span>
+              <span className="text-xs font-medium hidden sm:inline">{currentLang.label}</span>
+              <ChevronDown className="h-3 w-3" />
+            </Button>
+            {isLangOpen && (
+              <div className="absolute right-0 top-full mt-1 w-40 rounded-xl border border-border/50 bg-card/95 backdrop-blur-xl shadow-xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                {languages.map((lang) => (
+                  <button
+                    key={lang.code}
+                    onClick={() => changeLanguage(lang.code)}
+                    className={`w-full flex items-center gap-2.5 px-3 py-2.5 text-sm transition-colors hover:bg-primary/10 ${
+                      i18n.language === lang.code ? 'text-primary font-medium bg-primary/5' : 'text-muted-foreground'
+                    }`}
+                  >
+                    <span className="text-base">{lang.flag}</span>
+                    <span>{lang.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {!isInstalled && (
             <Button
