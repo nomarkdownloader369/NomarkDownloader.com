@@ -24,6 +24,7 @@ const App = () => {
     const dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.dir = dir;
     document.documentElement.lang = i18n.language;
+    document.documentElement.style.fontFamily = i18n.language === 'ar' ? '"Tajawal", sans-serif' : '';
   }, [i18n.language]);
 
   return (
