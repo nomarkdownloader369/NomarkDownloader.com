@@ -85,7 +85,11 @@ export default function Index() {
       <Header />
       <main>
         <HeroSection onAnalyze={handleAnalyze} isLoading={isLoading} error={error} />
-        {videoData && <ResultSection videoData={videoData} onClose={handleClose} />}
+        {videoData && (
+          <div className="-mt-4">
+            <ResultSection videoData={videoData} onClose={handleClose} />
+          </div>
+        )}
         <div className="px-4 py-6 text-center">
           <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium">
             {t('nav.blog')} →

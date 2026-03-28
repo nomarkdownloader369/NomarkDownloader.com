@@ -101,7 +101,7 @@ export function HeroSection({ onAnalyze, isLoading, error }: HeroSectionProps) {
           </div>
         </div>
 
-        <div className="mt-8 sm:mt-12 grid grid-cols-3 gap-3 sm:gap-4 max-w-lg mx-auto">
+        <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-3 sm:gap-4 max-w-lg mx-auto">
           <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary border border-border">
             <Download className="h-4 w-4 sm:h-5 sm:w-5 text-primary mb-1.5 sm:mb-2" />
             <span className="text-lg sm:text-2xl font-bold text-foreground">{t('hero.totalDownloads')}</span>
