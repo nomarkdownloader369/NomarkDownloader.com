@@ -25,10 +25,10 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">{t('footer.platforms')}</h3>
             <ul className="text-xs sm:text-sm text-muted-foreground space-y-2 sm:space-y-3">
-              <li><a href="#" className="hover:text-primary transition-colors">{t('footer.tiktokDownloader')}</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">{t('footer.instagramReels')}</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">{t('footer.instagramVideo')}</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">{t('footer.tiktokMp4')}</a></li>
+              <li><Link to="/" className="hover:text-primary transition-colors">{t('footer.tiktokDownloader')}</Link></li>
+              <li><Link to="/" className="hover:text-primary transition-colors">{t('footer.instagramReels')}</Link></li>
+              <li><Link to="/" className="hover:text-primary transition-colors">{t('footer.instagramVideo')}</Link></li>
+              <li><Link to="/" className="hover:text-primary transition-colors">{t('footer.tiktokMp4')}</Link></li>
             </ul>
           </div>
           <div>

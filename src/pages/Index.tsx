@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/nomark/Header";
@@ -15,19 +15,10 @@ import { supabase } from "@/integrations/supabase/client";
 
 export default function Index() {
   const { t, i18n } = useTranslation();
-  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [videoData, setVideoData] = useState<VideoInfo | null>(null);
   const [error, setError] = useState<string | undefined>();
 
-  useEffect(() => {
-    if (location.hash) {
-      const el = document.querySelector(location.hash);
-      if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100);
-      }
-    }
-  }, [location.hash]);
 
   const handleAnalyze = async (url: string) => {
     setIsLoading(true);

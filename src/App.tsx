@@ -13,6 +13,7 @@ import DmcaPage from "./pages/DmcaPage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import NotFound from "./pages/NotFound";
+import { ScrollToTop } from "./components/ScrollToTop";
 import "@/i18n";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/contact" element={<ContactPage />} />
