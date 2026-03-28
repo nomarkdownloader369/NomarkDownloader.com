@@ -1,9 +1,19 @@
-import { Menu, Smartphone, Globe } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Menu, Smartphone, Globe, ChevronDown } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { NoMarkLogo } from "./NoMarkLogo";
+
+const languages = [
+  { code: 'en', label: 'English', flag: '🇺🇸' },
+  { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+  { code: 'fr', label: 'Français', flag: '🇫🇷' },
+  { code: 'es', label: 'Español', flag: '🇪🇸' },
+  { code: 'tr', label: 'Türkçe', flag: '🇹🇷' },
+];
+
+const rtlLanguages = ['ar'];
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
