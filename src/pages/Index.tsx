@@ -63,16 +63,34 @@ export default function Index() {
   };
 
   const lang = i18n.language;
-  const isAr = lang === 'ar';
+
+  const titles: Record<string, string> = {
+    en: 'NoMark - Download TikTok & Instagram Videos Without Watermark | Free HD',
+    ar: 'NoMark - تحميل فيديوهات تيك توك وإنستغرام بدون علامة مائية',
+    fr: 'NoMark - Télécharger des vidéos TikTok et Instagram sans filigrane | HD Gratuit',
+    es: 'NoMark - Descargar vídeos de TikTok e Instagram sin marca de agua | HD Gratis',
+    tr: 'NoMark - TikTok ve Instagram Videolarını Filiransız İndir | Ücretsiz HD',
+  };
+
+  const descriptions: Record<string, string> = {
+    en: 'Free TikTok video downloader without watermark. Download Instagram Reels HD, save TikTok MP4. No watermark, no signup. Best video downloader 2026.',
+    ar: 'أفضل أداة مجانية لتحميل فيديوهات تيك توك وإنستغرام بدون علامة مائية بجودة HD. بدون تسجيل أو تطبيقات.',
+    fr: 'Téléchargeur gratuit de vidéos TikTok sans filigrane. Téléchargez Instagram Reels HD. Meilleur téléchargeur 2026.',
+    es: 'Descargador gratuito de vídeos TikTok sin marca de agua. Descarga Instagram Reels HD. Mejor descargador 2026.',
+    tr: 'Ücretsiz TikTok video indirici filiransız. Instagram Reels HD indir. 2026 en iyi video indirici.',
+  };
 
   return (
     <div className="min-h-screen bg-background pb-24">
       <Helmet>
-        <title>{isAr ? 'NoMark - تحميل فيديوهات تيك توك وإنستغرام بدون علامة مائية' : 'NoMark - Download TikTok & Instagram Videos Without Watermark | Free HD'}</title>
-        <meta name="description" content={isAr ? 'أفضل أداة مجانية لتحميل فيديوهات تيك توك وإنستغرام بدون علامة مائية بجودة HD. بدون تسجيل أو تطبيقات.' : 'Free TikTok video downloader without watermark. Download Instagram Reels HD, save TikTok MP4. No watermark, no signup. Best video downloader 2026.'} />
-        <meta name="keywords" content="TikTok video downloader without watermark, Instagram Reels downloader HD, download TikTok video no watermark, save Instagram Reels, TikTok to MP4, free video downloader, تحميل فيديو تيك توك بدون علامة مائية, تحميل ريلز انستغرام" />
+        <title>{titles[lang] || titles.en}</title>
+        <meta name="description" content={descriptions[lang] || descriptions.en} />
+        <meta name="keywords" content="TikTok video downloader without watermark, Instagram Reels downloader HD, download TikTok video no watermark, save Instagram Reels, TikTok to MP4, free video downloader, تحميل فيديو تيك توك بدون علامة مائية, تحميل ريلز انستغرام, télécharger TikTok sans filigrane, descargar TikTok sin marca de agua, TikTok video indirici filiransız" />
         <link rel="alternate" hrefLang="en" href="https://nomark.app/" />
         <link rel="alternate" hrefLang="ar" href="https://nomark.app/?lang=ar" />
+        <link rel="alternate" hrefLang="fr" href="https://nomark.app/?lang=fr" />
+        <link rel="alternate" hrefLang="es" href="https://nomark.app/?lang=es" />
+        <link rel="alternate" hrefLang="tr" href="https://nomark.app/?lang=tr" />
         <link rel="alternate" hrefLang="x-default" href="https://nomark.app/" />
         <meta property="og:title" content="NoMark - Download TikTok & Instagram Videos Without Watermark" />
         <meta property="og:description" content="Free HD video downloader. Save TikTok videos without watermark, download Instagram Reels in highest quality." />
