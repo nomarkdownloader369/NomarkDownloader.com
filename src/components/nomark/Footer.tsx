@@ -34,9 +34,9 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">{t('footer.quickLinks')}</h3>
             <ul className="text-xs sm:text-sm text-muted-foreground space-y-2 sm:space-y-3">
-              <li><a href="#features" className="hover:text-primary transition-colors">{t('nav.features')}</a></li>
-              <li><a href="#how-it-works" className="hover:text-primary transition-colors">{t('nav.howItWorks')}</a></li>
-              <li><a href="#faq" className="hover:text-primary transition-colors">{t('nav.faq')}</a></li>
+              <li><Link to="/#features" className="hover:text-primary transition-colors">{t('nav.features')}</Link></li>
+              <li><Link to="/#how-it-works" className="hover:text-primary transition-colors">{t('nav.howItWorks')}</Link></li>
+              <li><Link to="/#faq" className="hover:text-primary transition-colors">{t('nav.faq')}</Link></li>
               <li><Link to="/blog" className="hover:text-primary transition-colors">{t('nav.blog')}</Link></li>
               <li><Link to="/contact" className="hover:text-primary transition-colors">{t('footer.contactUs')}</Link></li>
             </ul>
