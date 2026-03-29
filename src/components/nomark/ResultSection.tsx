@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Download, Play, Crown, X, Clock, Eye, CheckCircle, Loader2, Sparkles } from "lucide-react";
+import { Download, Play, Crown, X, Clock, Eye, CheckCircle, Loader2, Sparkles, Music } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import type { VideoInfo } from "@/lib/types";
@@ -148,6 +148,25 @@ export function ResultSection({ videoData, onClose }: ResultSectionProps) {
                       {downloadComplete === "premium" ? (<><CheckCircle className="h-5 w-5" /><span>{t('result.hdStarted')}</span></>) : isDownloadingPremium ? (<><Loader2 className="h-5 w-5 animate-spin" /><span>{t('result.downloadingHD')}</span></>) : (<><Crown className="h-4 w-4 sm:h-5 sm:w-5" /><span>{t('result.downloadHD')}</span><div className="flex items-center gap-1 rounded-full bg-primary-foreground/20 px-2 py-0.5 sm:py-1 text-[10px] sm:text-xs font-semibold"><Play className="h-2.5 w-2.5 sm:h-3 sm:w-3 fill-current" /><span>{t('result.watchAd')}</span></div></>)}
                     </Button>
                   </div>
+                  {videoData.audioUrl && (
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = videoData.audioUrl!;
+                        link.download = `nomark_audio_${Date.now()}.mp3`;
+                        link.target = '_blank';
+                        link.rel = 'noopener noreferrer';
+                        document.body.appendChild(link);
+                        link.click();
+                        setTimeout(() => document.body.removeChild(link), 100);
+                      }}
+                      className="h-12 sm:h-13 w-full justify-center gap-2.5 text-xs sm:text-sm font-medium rounded-xl border-primary/30 hover:bg-primary/10"
+                    >
+                      <Music className="h-4 w-4" />
+                      {t('result.downloadAudio', 'Download Audio (MP3)')}
+                    </Button>
+                  )}
                   <p className="text-center text-[10px] sm:text-xs text-muted-foreground mt-1">
                     <Sparkles className="inline h-3 w-3 mr-1" />{t('result.watchAdInfo')}
                   </p>
