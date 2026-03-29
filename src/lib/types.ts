@@ -10,6 +10,7 @@ export interface VideoInfo {
     standard: string;
     hd: string;
   };
+  audioUrl?: string;
   error?: string;
 }
 
