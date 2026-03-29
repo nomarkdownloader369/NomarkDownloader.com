@@ -163,7 +163,7 @@ export function Header() {
               size="sm"
               className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground hover:opacity-90 transition-opacity rounded-full px-4"
             >
-              <NoMarkLogo className="h-4 w-4 rounded-sm" />
+              <img src="/icons/icon-192.png" alt="NoMark" className="h-4 w-4 rounded-sm" />
               <span className="text-sm font-medium">{t('nav.installApp')}</span>
             </Button>
           )}
