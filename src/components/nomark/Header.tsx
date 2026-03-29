@@ -76,7 +76,25 @@ export function Header() {
       if (outcome === 'accepted') setIsInstallable(false);
       setDeferredPrompt(null);
     } else {
-      alert('To install NoMark:\n\n1. Tap the browser menu (3 dots)\n2. Select "Add to Home Screen" or "Install App"\n3. Follow the prompts to install');
+      // On iOS or browsers without beforeinstallprompt, guide user
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      if (isIOS) {
+        // iOS Safari: use share > Add to Home Screen
+        import('sonner').then(({ toast }) => {
+          toast.info('To install NoMark on iOS:', {
+            description: 'Tap the Share button (↑) then "Add to Home Screen"',
+            duration: 6000,
+          });
+        });
+      } else {
+        // Android/Desktop Chrome: use menu > Install App
+        import('sonner').then(({ toast }) => {
+          toast.info('To install NoMark:', {
+            description: 'Tap ⋮ menu → "Install App" or "Add to Home Screen"',
+            duration: 6000,
+          });
+        });
+      }
     }
   };
 
