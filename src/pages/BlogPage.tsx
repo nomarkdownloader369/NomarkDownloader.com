@@ -63,6 +63,11 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>NoMark Blog - TikTok & Instagram Download Tips & Guides</title>
+        <meta name="description" content="Learn how to download TikTok videos without watermark and save Instagram Reels in HD. Free guides, tips, and tutorials." />
+        <link rel="canonical" href="https://nomark.app/blog" />
+      </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">
         <div className="mx-auto max-w-4xl">
