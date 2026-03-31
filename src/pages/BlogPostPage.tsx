@@ -28,6 +28,16 @@ export default function BlogPostPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{t(post.titleKey)} | NoMark Blog</title>
+        <meta name="description" content={t(post.excerptKey)} />
+        <link rel="canonical" href={`https://nomark.app/blog/${post.slug}`} />
+        <meta property="og:title" content={t(post.titleKey)} />
+        <meta property="og:description" content={t(post.excerptKey)} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://nomark.app/blog/${post.slug}`} />
+        <meta property="og:image" content="https://nomark.app/og-image.jpg" />
+      </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">
         <article className="mx-auto max-w-3xl">
