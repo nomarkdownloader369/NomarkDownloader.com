@@ -61,6 +61,14 @@ export default function BlogPostPage() {
             <div dangerouslySetInnerHTML={{ __html: t(contentKey) }} />
           </div>
 
+          <div className="mt-10 p-6 rounded-2xl bg-primary/5 border border-primary/20 text-center">
+            <h3 className="text-lg font-semibold text-foreground mb-2">Ready to Download?</h3>
+            <p className="text-sm text-muted-foreground mb-4">Paste your TikTok or Instagram link and download videos without watermark — free and fast.</p>
+            <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground font-semibold text-sm hover:opacity-90 transition-all">
+              Download Video Now →
+            </Link>
+          </div>
+
           <div className="mt-12 pt-8 border-t border-border">
             <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium">
               <ArrowLeft className="h-4 w-4" /> {t('blog.backToBlog')}
