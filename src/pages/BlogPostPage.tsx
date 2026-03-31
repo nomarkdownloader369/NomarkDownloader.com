@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/nomark/Header";
 import { Footer } from "@/components/nomark/Footer";
 import { blogPosts } from "./BlogPage";
@@ -27,6 +28,16 @@ export default function BlogPostPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{t(post.titleKey)} | NoMark Blog</title>
+        <meta name="description" content={t(post.excerptKey)} />
+        <link rel="canonical" href={`https://nomark.app/blog/${post.slug}`} />
+        <meta property="og:title" content={t(post.titleKey)} />
+        <meta property="og:description" content={t(post.excerptKey)} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={`https://nomark.app/blog/${post.slug}`} />
+        <meta property="og:image" content="https://nomark.app/og-image.jpg" />
+      </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">
         <article className="mx-auto max-w-3xl">
@@ -59,6 +70,14 @@ export default function BlogPostPage() {
             prose-li:text-muted-foreground
           ">
             <div dangerouslySetInnerHTML={{ __html: t(contentKey) }} />
+          </div>
+
+          <div className="mt-10 p-6 rounded-2xl bg-primary/5 border border-primary/20 text-center">
+            <h3 className="text-lg font-semibold text-foreground mb-2">Ready to Download?</h3>
+            <p className="text-sm text-muted-foreground mb-4">Paste your TikTok or Instagram link and download videos without watermark — free and fast.</p>
+            <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground font-semibold text-sm hover:opacity-90 transition-all">
+              Download Video Now →
+            </Link>
           </div>
 
           <div className="mt-12 pt-8 border-t border-border">

@@ -1,10 +1,35 @@
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/nomark/Header";
 import { Footer } from "@/components/nomark/Footer";
 import { Link } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
 
 const blogPosts = [
+  {
+    slug: "download-tiktok-without-watermark-2026-guide",
+    titleKey: "blog.post4Title",
+    excerptKey: "blog.post4Excerpt",
+    date: "2026-03-28",
+    readTime: "8 min",
+    category: "TikTok",
+  },
+  {
+    slug: "best-free-tiktok-downloader-no-signup",
+    titleKey: "blog.post5Title",
+    excerptKey: "blog.post5Excerpt",
+    date: "2026-03-25",
+    readTime: "7 min",
+    category: "Guide",
+  },
+  {
+    slug: "download-instagram-reels-without-watermark",
+    titleKey: "blog.post6Title",
+    excerptKey: "blog.post6Excerpt",
+    date: "2026-03-20",
+    readTime: "8 min",
+    category: "Instagram",
+  },
   {
     slug: "how-to-download-tiktok-videos-without-watermark",
     titleKey: "blog.post1Title",
@@ -38,6 +63,11 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>NoMark Blog - TikTok & Instagram Download Tips & Guides</title>
+        <meta name="description" content="Learn how to download TikTok videos without watermark and save Instagram Reels in HD. Free guides, tips, and tutorials." />
+        <link rel="canonical" href="https://nomark.app/blog" />
+      </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">
         <div className="mx-auto max-w-4xl">
