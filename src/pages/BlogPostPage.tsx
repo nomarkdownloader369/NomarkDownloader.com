@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/nomark/Header";
 import { Footer } from "@/components/nomark/Footer";
 import { blogPosts } from "./BlogPage";
