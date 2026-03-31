@@ -6,6 +6,30 @@ import { Calendar, ArrowRight } from "lucide-react";
 
 const blogPosts = [
   {
+    slug: "download-tiktok-without-watermark-2026-guide",
+    titleKey: "blog.post4Title",
+    excerptKey: "blog.post4Excerpt",
+    date: "2026-03-28",
+    readTime: "8 min",
+    category: "TikTok",
+  },
+  {
+    slug: "best-free-tiktok-downloader-no-signup",
+    titleKey: "blog.post5Title",
+    excerptKey: "blog.post5Excerpt",
+    date: "2026-03-25",
+    readTime: "7 min",
+    category: "Guide",
+  },
+  {
+    slug: "download-instagram-reels-without-watermark",
+    titleKey: "blog.post6Title",
+    excerptKey: "blog.post6Excerpt",
+    date: "2026-03-20",
+    readTime: "8 min",
+    category: "Instagram",
+  },
+  {
     slug: "how-to-download-tiktok-videos-without-watermark",
     titleKey: "blog.post1Title",
     excerptKey: "blog.post1Excerpt",
