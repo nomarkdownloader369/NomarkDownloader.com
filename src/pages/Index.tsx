@@ -108,12 +108,16 @@ export default function Index() {
       </Helmet>
       <Header />
       <main>
-        <HeroSection onAnalyze={handleAnalyze} isLoading={isLoading} error={error} />
-        {videoData && (
-          <div className="-mt-4">
-            <ResultSection videoData={videoData} onClose={handleClose} />
-          </div>
-        )}
+        <HeroSection
+          onAnalyze={handleAnalyze}
+          isLoading={isLoading}
+          error={error}
+          resultSlot={videoData ? (
+            <div className="mt-6">
+              <ResultSection videoData={videoData} onClose={handleClose} />
+            </div>
+          ) : undefined}
+        />
         <div className="px-4 py-6 text-center">
           <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium">
             {t('nav.blog')} →
