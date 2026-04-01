@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 import { Header } from "@/components/nomark/Header";
 import { Footer } from "@/components/nomark/Footer";
 import { Mail, Clock } from "lucide-react";
@@ -7,6 +8,11 @@ export default function ContactPage() {
   const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Contact Us - NoMark | TikTok & Instagram Video Downloader Support</title>
+        <meta name="description" content="Contact NoMark support team. Get help with downloading TikTok videos without watermark or Instagram Reels in HD." />
+        <link rel="canonical" href="https://nomark.app/contact" />
+      </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">
         <div className="mx-auto max-w-3xl">
