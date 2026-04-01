@@ -11,7 +11,7 @@ interface HeroSectionProps {
   resultSlot?: ReactNode;
 }
 
-export function HeroSection({ onAnalyze, isLoading, error }: HeroSectionProps) {
+export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSectionProps) {
   const { t } = useTranslation();
   const [url, setUrl] = useState("");
 
