@@ -88,6 +88,8 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
           )}
         </form>
 
+        {resultSlot}
+
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8">
           <span className="text-sm text-muted-foreground">{t('hero.worksWith')}</span>
           <div className="flex items-center gap-4 sm:gap-6">
