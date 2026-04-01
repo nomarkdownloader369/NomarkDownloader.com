@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { Link as LinkIcon, Search, Sparkles, Loader2, AlertCircle, Play, Download, CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
@@ -8,9 +8,10 @@ interface HeroSectionProps {
   onAnalyze: (url: string) => void;
   isLoading: boolean;
   error?: string;
+  resultSlot?: ReactNode;
 }
 
-export function HeroSection({ onAnalyze, isLoading, error }: HeroSectionProps) {
+export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSectionProps) {
   const { t } = useTranslation();
   const [url, setUrl] = useState("");
 
@@ -86,6 +87,8 @@ export function HeroSection({ onAnalyze, isLoading, error }: HeroSectionProps) {
             </div>
           )}
         </form>
+
+        {resultSlot}
 
         <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8">
           <span className="text-sm text-muted-foreground">{t('hero.worksWith')}</span>
