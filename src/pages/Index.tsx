@@ -96,11 +96,11 @@ export default function Index() {
         <meta name="twitter:image" content="https://nomark.app/og-image.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "WebApplication",
-          "name": "NoMark",
+          "@type": "SoftwareApplication",
+          "name": "NoMark Downloader",
           "url": "https://nomark.app",
           "description": "Free TikTok video downloader without watermark. Download Instagram Reels in HD quality. No signup required.",
-          "applicationCategory": "MultimediaApplication",
+          "applicationCategory": "UtilitiesApplication",
           "operatingSystem": "All",
           "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
           "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "15420" }

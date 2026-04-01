@@ -2,6 +2,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Home, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,6 +13,11 @@ const NotFound = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <Helmet>
+        <title>404 - Page Not Found | NoMark</title>
+        <meta name="description" content="This page doesn't exist. Go back to NoMark to download TikTok videos without watermark and Instagram Reels in HD for free." />
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="text-center max-w-md">
         <div className="mb-6 text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--chart-2))]">
           404
