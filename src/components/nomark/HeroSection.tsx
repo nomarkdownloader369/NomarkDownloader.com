@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { Link as LinkIcon, Search, Sparkles, Loader2, AlertCircle, Play, Download, CheckCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ interface HeroSectionProps {
   onAnalyze: (url: string) => void;
   isLoading: boolean;
   error?: string;
+  resultSlot?: ReactNode;
 }
 
 export function HeroSection({ onAnalyze, isLoading, error }: HeroSectionProps) {
