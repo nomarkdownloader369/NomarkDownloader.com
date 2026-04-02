@@ -113,7 +113,7 @@ export default function Index() {
           isLoading={isLoading}
           error={error}
           resultSlot={videoData ? (
-            <div className="mt-6 result-card-enter">
+            <div key={videoData.title + videoData.duration} className="mt-6 result-card-enter">
               <ResultSection videoData={videoData} onClose={handleClose} />
             </div>
           ) : undefined}
