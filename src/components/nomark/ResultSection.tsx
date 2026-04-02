@@ -93,7 +93,7 @@ export function ResultSection({ videoData, onClose }: ResultSectionProps) {
 
   return (
     <>
-      <section className="px-4 pt-2 pb-10 result-card-enter">
+      <section className="px-4 pt-2 pb-10">
         <div className="mx-auto max-w-2xl">
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-[hsl(var(--chart-2))]/20 to-primary/20 rounded-2xl blur-xl" />
