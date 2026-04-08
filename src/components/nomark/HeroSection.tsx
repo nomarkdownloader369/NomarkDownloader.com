@@ -1,5 +1,5 @@
 import { useState, ReactNode } from "react";
-import { Link as LinkIcon, Search, Sparkles, Loader2, AlertCircle, Play, Download, CheckCircle } from "lucide-react";
+import { Link as LinkIcon, Search, Sparkles, Loader2, AlertCircle, Play, Download, CheckCircle, Shield, Smartphone, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,19 +39,17 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
           {t('hero.title1')}
           <br />
           <span className="relative inline-block mt-2">
-            {t('hero.title2')}{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--chart-2))]">
-              {t('hero.title3')}
-            </span>{" "}
-            {t('hero.title4')}
+              {t('hero.title2')}
+            </span>
           </span>
         </h1>
 
-        <p className="mt-6 sm:mt-8 text-base sm:text-lg text-muted-foreground md:text-xl max-w-2xl mx-auto text-pretty leading-relaxed px-2">
-          {t('hero.subtitle')} <span className="text-foreground font-medium">{t('hero.tiktok')}</span> {t('hero.and')} <span className="text-foreground font-medium">{t('hero.instagram')}</span> {t('hero.subtitleEnd')}
+        <p className="mt-5 sm:mt-6 text-sm sm:text-base md:text-lg text-muted-foreground font-medium tracking-wide">
+          {t('hero.subheadline')}
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-8 sm:mt-12 md:mt-14">
+        <form onSubmit={handleSubmit} className="mt-8 sm:mt-10">
           <div className="relative max-w-2xl mx-auto">
             <div className="absolute inset-0 rounded-2xl opacity-60" style={{ background: 'linear-gradient(90deg, rgba(0,255,166,0.2), rgba(0,229,255,0.2))', filter: 'blur(25px)' }} />
             <div className="relative flex flex-col gap-3 sm:flex-row sm:gap-0 p-2 rounded-2xl border border-border/30" style={{ background: 'rgba(10,15,13,0.8)', backdropFilter: 'blur(20px)' }}>
@@ -74,7 +72,7 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
                 {isLoading ? (
                   <><Loader2 className="mr-2 h-5 w-5 animate-spin" />{t('hero.analyzing')}</>
                 ) : (
-                  <><Search className="mr-2 h-5 w-5" />{t('hero.analyze')}</>
+                  <><Download className="mr-2 h-5 w-5" />{t('hero.cta')}</>
                 )}
               </Button>
             </div>
@@ -88,9 +86,26 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
           )}
         </form>
 
+        <p className="mt-3 text-xs sm:text-sm text-muted-foreground">{t('hero.urgency')}</p>
+
         {resultSlot}
 
-        <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8">
+        {/* Trust Bar */}
+        <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+          {[
+            { icon: Download, key: 'hero.trust1' },
+            { icon: Shield, key: 'hero.trust2' },
+            { icon: Zap, key: 'hero.trust3' },
+            { icon: Smartphone, key: 'hero.trust4' },
+          ].map((item) => (
+            <div key={item.key} className="flex items-center gap-1.5 sm:gap-2">
+              <item.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" style={{ filter: 'drop-shadow(0 0 4px rgba(0,255,166,0.4))' }} />
+              <span className="text-xs sm:text-sm text-foreground/80 font-medium">{t(item.key)}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-8">
           <span className="text-sm text-muted-foreground">{t('hero.worksWith')}</span>
           <div className="flex items-center gap-4 sm:gap-6">
             <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 rounded-full bg-secondary border border-border hover:border-primary/30 transition-colors">
