@@ -175,6 +175,18 @@
     "section3Title": "Karşı bildirim",
     "section3Text": "İçeriğinizin yanlışlıkla kaldırıldığını düşünüyorsanız, karşı bildirim gönderebilirsiniz."
   },
+  "testimonials": {
+    "title": "Dünya çapında binlerce kullanıcı tarafından güvenilir",
+    "t1": "Kullandığım en hızlı indirici. Videolar saniyeler içinde iniyor!",
+    "n1": "— Sarah M., İçerik Üreticisi",
+    "t2": "Filiransız mükemmel çalışıyor. Şiddetle tavsiye ederim.",
+    "n2": "— Ahmed K., Öğrenci",
+    "t3": "Basit, hızlı ve ücretsiz — tam ihtiyacım olan şey.",
+    "n3": "— Maria L., Tasarımcı"
+  },
+  "secondCta": {
+    "button": "Videonuzu şimdi indirin"
+  },
   "language": "Dil",
   "ad": "REKLAM",
   "adSpace": "Reklam alanı - 728x90",

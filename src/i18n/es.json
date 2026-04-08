@@ -175,6 +175,18 @@
     "section3Title": "Contra-notificación",
     "section3Text": "Si crees que tu contenido fue eliminado por error, puedes presentar una contra-notificación."
   },
+  "testimonials": {
+    "title": "Confianza de miles de usuarios en todo el mundo",
+    "t1": "El descargador más rápido que he usado. ¡Los vídeos se descargan en segundos!",
+    "n1": "— Sarah M., Creadora de contenido",
+    "t2": "Funciona perfectamente sin marca de agua. Muy recomendado.",
+    "n2": "— Ahmed K., Estudiante",
+    "t3": "Simple, rápido y gratis — exactamente lo que necesitaba.",
+    "n3": "— María L., Diseñadora"
+  },
+  "secondCta": {
+    "button": "Descarga tu vídeo ahora"
+  },
   "language": "Idioma",
   "ad": "ANUNCIO",
   "adSpace": "Espacio publicitario - 728x90",

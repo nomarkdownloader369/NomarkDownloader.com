@@ -175,6 +175,18 @@
     "section3Title": "Contre-notification",
     "section3Text": "Si vous pensez que votre contenu a été retiré par erreur, vous pouvez déposer une contre-notification."
   },
+  "testimonials": {
+    "title": "Approuvé par des milliers d'utilisateurs dans le monde",
+    "t1": "Le téléchargeur le plus rapide que j'ai jamais utilisé. Les vidéos se téléchargent en secondes !",
+    "n1": "— Sarah M., Créatrice de contenu",
+    "t2": "Fonctionne parfaitement sans filigrane. Fortement recommandé.",
+    "n2": "— Ahmed K., Étudiant",
+    "t3": "Simple, rapide et gratuit — exactement ce dont j'avais besoin.",
+    "n3": "— Maria L., Designer"
+  },
+  "secondCta": {
+    "button": "Téléchargez votre vidéo maintenant"
+  },
   "language": "Langue",
   "ad": "PUB",
   "adSpace": "Espace publicitaire - 728x90",
