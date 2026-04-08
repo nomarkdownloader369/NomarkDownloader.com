@@ -175,6 +175,18 @@
     "section3Title": "Counter-Notification",
     "section3Text": "If you believe your content was removed in error, you may file a counter-notification with the required information as outlined in the DMCA."
   },
+  "testimonials": {
+    "title": "Trusted by Thousands of Users Worldwide",
+    "t1": "This is the fastest downloader I've ever used. Videos download in seconds!",
+    "n1": "— Sarah M., Content Creator",
+    "t2": "Works perfectly without watermark. Highly recommended for anyone who downloads TikTok videos.",
+    "n2": "— Ahmed K., Student",
+    "t3": "Simple, fast, and free — exactly what I needed. No ads, no hassle.",
+    "n3": "— Maria L., Designer"
+  },
+  "secondCta": {
+    "button": "Download Your Video Now"
+  },
   "language": "Language",
   "ad": "AD",
   "adSpace": "Advertisement Space - 728x90",
