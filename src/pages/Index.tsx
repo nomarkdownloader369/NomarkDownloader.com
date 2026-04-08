@@ -10,6 +10,8 @@ import { HowItWorks } from "@/components/nomark/HowItWorks";
 import { FAQ } from "@/components/nomark/FAQ";
 import { Footer } from "@/components/nomark/Footer";
 import { AdBanner } from "@/components/nomark/AdBanner";
+import { TestimonialsSection } from "@/components/nomark/TestimonialsSection";
+import { SecondCTA } from "@/components/nomark/SecondCTA";
 import type { VideoInfo } from "@/lib/types";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -124,6 +126,8 @@ export default function Index() {
           </Link>
         </div>
         <FeaturesSection />
+        <SecondCTA />
+        <TestimonialsSection />
         <HowItWorks />
         <FAQ />
       </main>
