@@ -24,9 +24,9 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
     <section className="relative px-4 pt-24 pb-4 md:pt-32 md:pb-6 overflow-hidden">
       {/* Background orbs */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[900px] md:h-[900px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(20, 184, 166, 0.2) 50%, transparent 70%)', filter: 'blur(60px)' }} />
-        <div className="absolute right-0 top-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(6, 182, 212, 0.3) 0%, transparent 70%)', filter: 'blur(50px)' }} />
-        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        <div className="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[900px] md:h-[900px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,255,166,0.15) 0%, rgba(0,229,255,0.08) 50%, transparent 70%)', filter: 'blur(80px)' }} />
+        <div className="absolute right-0 top-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.12) 0%, transparent 70%)', filter: 'blur(60px)' }} />
+        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(rgba(0,255,166,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,166,0.04) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
 
       <div className="mx-auto max-w-4xl text-center">
@@ -35,7 +35,7 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
           <span className="font-medium">{t('hero.badge')}</span>
         </div>
 
-        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl text-balance leading-tight">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl text-balance leading-tight neon-text">
           {t('hero.title1')}
           <br />
           <span className="relative inline-block mt-2">
@@ -53,8 +53,8 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
 
         <form onSubmit={handleSubmit} className="mt-8 sm:mt-12 md:mt-14">
           <div className="relative max-w-2xl mx-auto">
-            <div className="absolute inset-0 rounded-2xl opacity-60" style={{ background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.3), rgba(20, 184, 166, 0.3), rgba(6, 182, 212, 0.3))', filter: 'blur(20px)' }} />
-            <div className="relative flex flex-col gap-3 sm:flex-row sm:gap-0 p-2 rounded-2xl bg-card/80 backdrop-blur-xl border border-border/30">
+            <div className="absolute inset-0 rounded-2xl opacity-60" style={{ background: 'linear-gradient(90deg, rgba(0,255,166,0.2), rgba(0,229,255,0.2))', filter: 'blur(25px)' }} />
+            <div className="relative flex flex-col gap-3 sm:flex-row sm:gap-0 p-2 rounded-2xl border border-border/30" style={{ background: 'rgba(10,15,13,0.8)', backdropFilter: 'blur(20px)' }}>
               <div className="relative flex-1">
                 <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
@@ -62,14 +62,14 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
                   placeholder={t('hero.placeholder')}
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
-                  className="h-12 sm:h-14 pl-12 pr-4 text-sm sm:text-base bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-muted-foreground/50 text-foreground"
+                  className="h-12 sm:h-14 pl-12 pr-4 text-sm sm:text-base bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-muted-foreground/50 text-foreground neon-input !border-0"
                   aria-label="Video URL input"
                 />
               </div>
               <Button
                 type="submit"
                 disabled={isLoading || !url.trim()}
-                className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-semibold rounded-xl bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground hover:opacity-90 transition-all shadow-lg shadow-primary/25 disabled:opacity-50"
+                className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base font-semibold rounded-xl neon-btn disabled:opacity-50"
               >
                 {isLoading ? (
                   <><Loader2 className="mr-2 h-5 w-5 animate-spin" />{t('hero.analyzing')}</>
@@ -105,17 +105,17 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         </div>
 
         <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-3 sm:gap-4 max-w-lg mx-auto">
-          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary border border-border">
+          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary neon-card">
             <Download className="h-4 w-4 sm:h-5 sm:w-5 text-primary mb-1.5 sm:mb-2" />
             <span className="text-lg sm:text-2xl font-bold text-foreground">{t('hero.totalDownloads')}</span>
             <span className="text-[10px] sm:text-xs text-muted-foreground">{t('hero.downloadsLabel')}</span>
           </div>
-          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary border border-border">
+          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary neon-card">
             <Play className="h-4 w-4 sm:h-5 sm:w-5 text-primary mb-1.5 sm:mb-2" />
             <span className="text-lg sm:text-2xl font-bold text-foreground">{t('hero.quality')}</span>
             <span className="text-[10px] sm:text-xs text-muted-foreground">{t('hero.qualityLabel')}</span>
           </div>
-          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary border border-border">
+          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary neon-card">
             <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-primary mb-1.5 sm:mb-2" />
             <span className="text-lg sm:text-2xl font-bold text-foreground">{t('hero.free')}</span>
             <span className="text-[10px] sm:text-xs text-muted-foreground">{t('hero.freeLabel')}</span>
