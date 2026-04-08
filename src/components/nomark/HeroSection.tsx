@@ -105,17 +105,17 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         </div>
 
         <div className="mt-6 sm:mt-8 grid grid-cols-3 gap-3 sm:gap-4 max-w-lg mx-auto">
-          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary border border-border">
+          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary neon-card">
             <Download className="h-4 w-4 sm:h-5 sm:w-5 text-primary mb-1.5 sm:mb-2" />
             <span className="text-lg sm:text-2xl font-bold text-foreground">{t('hero.totalDownloads')}</span>
             <span className="text-[10px] sm:text-xs text-muted-foreground">{t('hero.downloadsLabel')}</span>
           </div>
-          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary border border-border">
+          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary neon-card">
             <Play className="h-4 w-4 sm:h-5 sm:w-5 text-primary mb-1.5 sm:mb-2" />
             <span className="text-lg sm:text-2xl font-bold text-foreground">{t('hero.quality')}</span>
             <span className="text-[10px] sm:text-xs text-muted-foreground">{t('hero.qualityLabel')}</span>
           </div>
-          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary border border-border">
+          <div className="flex flex-col items-center p-3 sm:p-4 rounded-xl bg-secondary neon-card">
             <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5 text-primary mb-1.5 sm:mb-2" />
             <span className="text-lg sm:text-2xl font-bold text-foreground">{t('hero.free')}</span>
             <span className="text-[10px] sm:text-xs text-muted-foreground">{t('hero.freeLabel')}</span>
