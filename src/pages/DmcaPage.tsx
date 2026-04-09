@@ -12,7 +12,7 @@ export default function DmcaPage() {
       <Helmet>
         <title>DMCA Policy - NoMark | Copyright & Takedown Requests</title>
         <meta name="description" content="NoMark DMCA policy. Submit copyright takedown requests for content downloaded using our TikTok and Instagram video downloader." />
-        <link rel="canonical" href="https://nomark.app/dmca" />
+        <link rel="canonical" href="https://nomarkdownloader.com/dmca" />
       </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">

@@ -79,28 +79,28 @@ export default function Index() {
         <title>{titles[lang] || titles.en}</title>
         <meta name="description" content={descriptions[lang] || descriptions.en} />
         <meta name="keywords" content="tiktok downloader no watermark, download tiktok video hd, instagram video downloader, save reels without watermark, free video downloader online, tiktok to mp4, download instagram reels hd, تحميل فيديو تيك توك بدون علامة مائية, تحميل ريلز انستغرام" />
-        <link rel="canonical" href="https://nomark.app/" />
-        <link rel="alternate" hrefLang="en" href="https://nomark.app/" />
-        <link rel="alternate" hrefLang="ar" href="https://nomark.app/?lang=ar" />
-        <link rel="alternate" hrefLang="fr" href="https://nomark.app/?lang=fr" />
-        <link rel="alternate" hrefLang="es" href="https://nomark.app/?lang=es" />
-        <link rel="alternate" hrefLang="tr" href="https://nomark.app/?lang=tr" />
-        <link rel="alternate" hrefLang="x-default" href="https://nomark.app/" />
+        <link rel="canonical" href="https://nomarkdownloader.com/" />
+        <link rel="alternate" hrefLang="en" href="https://nomarkdownloader.com/" />
+        <link rel="alternate" hrefLang="ar" href="https://nomarkdownloader.com/?lang=ar" />
+        <link rel="alternate" hrefLang="fr" href="https://nomarkdownloader.com/?lang=fr" />
+        <link rel="alternate" hrefLang="es" href="https://nomarkdownloader.com/?lang=es" />
+        <link rel="alternate" hrefLang="tr" href="https://nomarkdownloader.com/?lang=tr" />
+        <link rel="alternate" hrefLang="x-default" href="https://nomarkdownloader.com/" />
         <meta property="og:title" content="NoMark - Free TikTok & Instagram Video Downloader Without Watermark" />
         <meta property="og:description" content="Download TikTok videos without watermark in HD. Save Instagram Reels free. No signup, no app. Fastest free video downloader." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://nomark.app/" />
-        <meta property="og:image" content="https://nomark.app/og-image.jpg" />
+        <meta property="og:url" content="https://nomarkdownloader.com/" />
+        <meta property="og:image" content="https://nomarkdownloader.com/og-image.jpg" />
         <meta property="og:site_name" content="NoMark" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="NoMark - Free TikTok & Instagram Video Downloader" />
         <meta name="twitter:description" content="Download TikTok videos without watermark. Save Instagram Reels HD. Free, fast, no signup." />
-        <meta name="twitter:image" content="https://nomark.app/og-image.jpg" />
+        <meta name="twitter:image" content="https://nomarkdownloader.com/og-image.jpg" />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
           "name": "NoMark Downloader",
-          "url": "https://nomark.app",
+          "url": "https://nomarkdownloader.com",
           "description": "Free TikTok video downloader without watermark. Download Instagram Reels in HD quality. No signup required.",
           "applicationCategory": "UtilitiesApplication",
           "operatingSystem": "All",

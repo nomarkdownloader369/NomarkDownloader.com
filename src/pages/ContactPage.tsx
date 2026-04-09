@@ -11,7 +11,7 @@ export default function ContactPage() {
       <Helmet>
         <title>Contact Us - NoMark | TikTok & Instagram Video Downloader Support</title>
         <meta name="description" content="Contact NoMark support team. Get help with downloading TikTok videos without watermark or Instagram Reels in HD." />
-        <link rel="canonical" href="https://nomark.app/contact" />
+        <link rel="canonical" href="https://nomarkdownloader.com/contact" />
       </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">

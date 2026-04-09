@@ -122,7 +122,7 @@ export default function BlogPage() {
       <Helmet>
         <title>NoMark Blog - TikTok & Instagram Download Tips & Guides</title>
         <meta name="description" content="Learn how to download TikTok videos without watermark and save Instagram Reels in HD. Free guides, tips, and tutorials." />
-        <link rel="canonical" href="https://nomark.app/blog" />
+        <link rel="canonical" href="https://nomarkdownloader.com/blog" />
       </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">

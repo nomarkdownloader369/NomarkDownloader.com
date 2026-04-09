@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://nomark.app/sitemap.xml
+Sitemap: https://nomarkdownloader.com/sitemap.xml

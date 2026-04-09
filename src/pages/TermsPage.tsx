@@ -16,7 +16,7 @@ export default function TermsPage() {
       <Helmet>
         <title>Terms of Service - NoMark | Free Video Downloader</title>
         <meta name="description" content="NoMark terms of service. Read our terms for using our free TikTok and Instagram video downloader without watermark." />
-        <link rel="canonical" href="https://nomark.app/terms" />
+        <link rel="canonical" href="https://nomarkdownloader.com/terms" />
       </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">
