@@ -132,6 +132,17 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limiting
+    const clientIP = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+                     req.headers.get('cf-connecting-ip') || 'unknown';
+    const rateCheck = checkRateLimit(clientIP);
+    if (!rateCheck.allowed) {
+      return new Response(JSON.stringify({ success: false, error: "Too many requests. Please wait a moment and try again." }), { 
+        status: 429, 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Retry-After': '60' } 
+      });
+    }
+
     let body: any;
     try { body = await req.json(); } catch {
       return new Response(JSON.stringify({ success: false, error: "Invalid request body." }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
