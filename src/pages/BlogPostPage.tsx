@@ -31,12 +31,12 @@ export default function BlogPostPage() {
       <Helmet>
         <title>{t(post.titleKey)} | NoMark Blog</title>
         <meta name="description" content={t(post.excerptKey)} />
-        <link rel="canonical" href={`https://nomark.app/blog/${post.slug}`} />
+        <link rel="canonical" href={`https://nomarkdownloader.com/blog/${post.slug}`} />
         <meta property="og:title" content={t(post.titleKey)} />
         <meta property="og:description" content={t(post.excerptKey)} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://nomark.app/blog/${post.slug}`} />
-        <meta property="og:image" content="https://nomark.app/og-image.jpg" />
+        <meta property="og:url" content={`https://nomarkdownloader.com/blog/${post.slug}`} />
+        <meta property="og:image" content="https://nomarkdownloader.com/og-image.jpg" />
       </Helmet>
       <Header />
       <main className="pt-24 pb-16 px-4">

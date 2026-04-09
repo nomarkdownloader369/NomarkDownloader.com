@@ -12,7 +12,7 @@ export default function AboutPage() {
       <Helmet>
         <title>{t('about.metaTitle')}</title>
         <meta name="description" content={t('about.metaDesc')} />
-        <link rel="canonical" href="https://nomark.app/about" />
+        <link rel="canonical" href="https://nomarkdownloader.com/about" />
       </Helmet>
       <Header />
       <main className="px-4 pt-24 pb-16">
