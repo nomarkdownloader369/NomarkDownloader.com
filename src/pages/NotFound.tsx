@@ -1,6 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
-import { Home, ArrowLeft } from "lucide-react";
+import { Home, ArrowLeft, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
 
@@ -30,13 +30,13 @@ const NotFound = () => {
           <Button asChild className="bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground">
             <Link to="/">
               <Home className="mr-2 h-4 w-4" />
-              Download Videos Now
+              Go to Homepage
             </Link>
           </Button>
-          <Button asChild variant="outline">
-            <Link to="/blog">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Read Our Blog
+          <Button asChild variant="secondary">
+            <Link to="/">
+              <Download className="mr-2 h-4 w-4" />
+              Download Video Now
             </Link>
           </Button>
         </div>

@@ -80,7 +80,29 @@ export default function BlogPostPage() {
             </Link>
           </div>
 
+          {/* Related Articles */}
           <div className="mt-12 pt-8 border-t border-border">
+            <h3 className="text-lg font-semibold text-foreground mb-4">{t('blog.relatedArticles', 'Related Articles')}</h3>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {blogPosts
+                .filter((p) => p.slug !== slug)
+                .slice(0, 4)
+                .map((relatedPost) => (
+                  <Link
+                    key={relatedPost.slug}
+                    to={`/blog/${relatedPost.slug}`}
+                    className="group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors"
+                  >
+                    <span className="text-[10px] font-medium uppercase tracking-wider text-primary/60">{relatedPost.category}</span>
+                    <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors mt-1 line-clamp-2">
+                      {t(relatedPost.titleKey)}
+                    </h4>
+                  </Link>
+                ))}
+            </div>
+          </div>
+
+          <div className="mt-8 pt-6 border-t border-border">
             <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium">
               <ArrowLeft className="h-4 w-4" /> {t('blog.backToBlog')}
             </Link>
