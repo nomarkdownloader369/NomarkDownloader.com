@@ -8,24 +8,24 @@
     "downloads": "2.4M+ Downloads"
   },
   "hero": {
-    "badge": "Trusted by 15M+ Users Worldwide",
-    "title1": "Save Any Video.",
-    "title2": "No Watermark. Ever.",
-    "subheadline": "Download TikTok & Instagram videos in HD — instantly, for free, no signup needed.",
+    "badge": "Free Online Video Downloader",
+    "title1": "Download TikTok & Instagram Videos",
+    "title2": "No Watermark • Fast • Free",
+    "subheadline": "Paste a link, get your video in HD — no signup, no app, no limits.",
     "placeholder": "Paste TikTok or Instagram video link...",
-    "cta": "Download Now – Free",
-    "analyze": "Analyze Link",
-    "analyzing": "Analyzing...",
-    "urgency": "Instant download — no waiting, no limits",
-    "trust1": "15M+ Downloads",
+    "cta": "Get Download Link",
+    "analyze": "Get Download Link",
+    "analyzing": "Processing...",
+    "urgency": "Paste link → Generate → Download",
+    "trust1": "Fast Processing",
     "trust2": "No Watermark",
     "trust3": "100% Free",
-    "trust4": "Works on All Devices",
+    "trust4": "All Devices",
     "worksWith": "Works with:",
-    "totalDownloads": "15M+",
-    "downloadsLabel": "Downloads",
-    "quality": "HD",
-    "qualityLabel": "Quality",
+    "totalDownloads": "HD",
+    "downloadsLabel": "Quality",
+    "quality": "MP4",
+    "qualityLabel": "Format",
     "free": "Free",
     "freeLabel": "Forever"
   },
@@ -185,7 +185,7 @@
     "n3": "— Maria L., Designer"
   },
   "secondCta": {
-    "button": "Download Your Video Now"
+    "button": "Try It Free — Get Your Download Link"
   },
   "language": "Language",
   "ad": "AD",
