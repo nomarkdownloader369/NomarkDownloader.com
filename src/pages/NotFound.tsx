@@ -30,13 +30,13 @@ const NotFound = () => {
           <Button asChild className="bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground">
             <Link to="/">
               <Home className="mr-2 h-4 w-4" />
-              Download Videos Now
+              Go to Homepage
             </Link>
           </Button>
-          <Button asChild variant="outline">
-            <Link to="/blog">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Read Our Blog
+          <Button asChild variant="secondary">
+            <Link to="/">
+              <Download className="mr-2 h-4 w-4" />
+              Download Video Now
             </Link>
           </Button>
         </div>

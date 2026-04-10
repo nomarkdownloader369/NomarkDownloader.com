@@ -170,6 +170,10 @@ export function ResultSection({ videoData, onClose }: ResultSectionProps) {
                   <p className="text-center text-[10px] sm:text-xs text-muted-foreground mt-1">
                     <Sparkles className="inline h-3 w-3 mr-1" />{t('result.watchAdInfo')}
                   </p>
+                  <div className="mt-3 flex items-center justify-center gap-2 text-[10px] sm:text-xs text-primary/80 font-medium">
+                    <CheckCircle className="h-3 w-3" />
+                    <span>Fast, free, no watermark</span>
+                  </div>
                 </div>
               </div>
             </div>
