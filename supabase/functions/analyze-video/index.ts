@@ -27,7 +27,7 @@ function formatViews(views: number | string): string {
   return num.toString();
 }
 
-// ── TikTok: tikwm.com (free, no key) ──
+// ── TikTok Functions (لم يتغير) ──
 async function fetchTikTok_tikwm(url: string) {
   const res = await fetch("https://www.tikwm.com/api/", {
     method: "POST",
@@ -49,7 +49,6 @@ async function fetchTikTok_tikwm(url: string) {
   };
 }
 
-// ── TikTok fallback: tikcdn.io ──
 async function fetchTikTok_tikcdn(url: string) {
   const res = await fetch("https://tikcdn.io/ssstik/" + encodeURIComponent(url));
   if (!res.ok) throw new Error("tikcdn request failed");
@@ -65,43 +64,21 @@ async function fetchTikTok_tikcdn(url: string) {
   };
 }
 
-// ── Instagram Primary: SnapInsta (أفضل وأسرع في 2026) ──
+// ── Instagram Functions (محدثة 2026) ──
 async function fetchInstagram_snapinsta(url: string) {
-  const apiUrl = `https://api.snapinsta.app/v2/download?url=${encodeURIComponent(url)}`;
-  
-  const res = await fetch(apiUrl, {
-    method: 'GET',
+  const res = await fetch(`https://api.snapinsta.app/v2/download?url=${encodeURIComponent(url)}`, {
     headers: { 'Accept': 'application/json' },
   });
-
-  if (!res.ok) throw new Error(`SnapInsta failed: ${res.status}`);
-
+  if (!res.ok) throw new Error(`SnapInsta HTTP ${res.status}`);
   const json = await res.json();
-  
-  let downloadUrl = "";
-  let thumbnail = "";
-  let title = "Instagram Video";
-  let author = "Unknown";
 
-  if (json.data && Array.isArray(json.data) && json.data[0]?.url) {
-    downloadUrl = json.data[0].url;
-    thumbnail = json.data[0].thumbnail || "";
-    title = json.data[0].title || title;
-    author = json.data[0].username || author;
-  } else if (json.url) {
-    downloadUrl = json.url;
-    thumbnail = json.thumbnail || "";
-  } else if (json.medias && Array.isArray(json.medias) && json.medias[0]?.url) {
-    downloadUrl = json.medias[0].url;
-    thumbnail = json.medias[0].thumbnail || "";
-  }
-
+  let downloadUrl = json.data?.[0]?.url || json.url || (json.medias?.[0]?.url) || "";
   if (!downloadUrl) throw new Error("No download URL from SnapInsta");
 
   return {
-    thumbnail,
-    title,
-    author,
+    thumbnail: json.data?.[0]?.thumbnail || json.thumbnail || "",
+    title: json.data?.[0]?.title || "Instagram Reel",
+    author: json.username || "Unknown",
     duration: "0:00",
     views: "N/A",
     downloadUrl,
@@ -109,22 +86,16 @@ async function fetchInstagram_snapinsta(url: string) {
   };
 }
 
-// ── Instagram Fallback 1: SaveFromIns ──
 async function fetchInstagram_savefromins(url: string) {
-  const res = await fetch(`https://api.savefromins.com/v1/download?url=${encodeURIComponent(url)}`, {
-    method: 'GET',
-  });
-
+  const res = await fetch(`https://api.savefromins.com/v1/download?url=${encodeURIComponent(url)}`);
   if (!res.ok) throw new Error("SaveFromIns failed");
-
   const json = await res.json();
   const video = json.video || json.data?.[0] || json;
-
-  if (!video?.url) throw new Error("No video URL from SaveFromIns");
+  if (!video?.url) throw new Error("No URL from SaveFromIns");
 
   return {
-    thumbnail: video.thumb || video.thumbnail || "",
-    title: video.title || "Instagram Video",
+    thumbnail: video.thumb || "",
+    title: video.title || "Instagram Reel",
     author: video.author || "Unknown",
     duration: "0:00",
     views: "N/A",
@@ -133,24 +104,20 @@ async function fetchInstagram_savefromins(url: string) {
   };
 }
 
-// ── Instagram Fallback 2: igdownloader (محسن) ──
 async function fetchInstagram_fallback(url: string) {
   const res = await fetch("https://v3.igdownloader.app/api/v1/media-info", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ url }),
   });
-
   if (!res.ok) throw new Error("igdownloader failed");
-
   const json = await res.json();
   const media = json?.media?.[0] || json;
-
-  if (!media?.url) throw new Error("No media URL from igdownloader");
+  if (!media?.url) throw new Error("No media from igdownloader");
 
   return {
     thumbnail: media.thumbnail || "",
-    title: json.title || "Instagram Video",
+    title: json.title || "Instagram Reel",
     author: json.username || "Unknown",
     duration: "0:00",
     views: "N/A",
@@ -160,27 +127,18 @@ async function fetchInstagram_fallback(url: string) {
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
-  }
+  if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
 
   try {
-    // Rate limiting
-    const clientIP = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
-                     req.headers.get('cf-connecting-ip') || 'unknown';
+    const clientIP = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('cf-connecting-ip') || 'unknown';
     const rateCheck = checkRateLimit(clientIP);
     if (!rateCheck.allowed) {
-      return new Response(JSON.stringify({ success: false, error: "Too many requests. Please wait a moment and try again." }), { 
-        status: 429, 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Retry-After': '60' } 
+      return new Response(JSON.stringify({ success: false, error: "Too many requests. Please wait a moment." }), { 
+        status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
       });
     }
 
-    let body: any;
-    try { body = await req.json(); } catch {
-      return new Response(JSON.stringify({ success: false, error: "Invalid request body." }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-    }
-
+    const body = await req.json().catch(() => ({}));
     const url = body?.url;
     if (!url || typeof url !== 'string') {
       return new Response(JSON.stringify({ success: false, error: "Please provide a valid video URL" }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
@@ -192,33 +150,22 @@ serve(async (req) => {
 
     const platform = detectPlatform(url);
     if (platform === "unknown") {
-      return new Response(JSON.stringify({ success: false, error: "Unsupported platform. Currently we support TikTok and Instagram only." }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      return new Response(JSON.stringify({ success: false, error: "Unsupported platform. We support TikTok & Instagram." }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
     let result: any = null;
     const errors: string[] = [];
 
     if (platform === "tiktok") {
-      // TikTok logic (لم يتغير أبداً)
-      try {
-        console.log("Trying tikwm for TikTok...");
-        result = await fetchTikTok_tikwm(url);
-      } catch (e) {
-        errors.push(`tikwm: ${e.message}`);
-        console.error("tikwm failed:", e.message);
-      }
-
-      if (!result?.downloadUrl) {
-        try {
-          console.log("Trying tikcdn fallback for TikTok...");
-          result = await fetchTikTok_tikcdn(url);
-        } catch (e) {
-          errors.push(`tikcdn: ${e.message}`);
-          console.error("tikcdn failed:", e.message);
-        }
+      // TikTok logic (غير متغير)
+      try { result = await fetchTikTok_tikwm(url); } 
+      catch (e) { 
+        errors.push(`tikwm: ${e.message}`); 
+        try { result = await fetchTikTok_tikcdn(url); } 
+        catch (e2) { errors.push(`tikcdn: ${e2.message}`); }
       }
     } else {
-      // Instagram logic (محسن ومنظم)
+      // Instagram logic (محدث)
       console.log("Trying SnapInsta for Instagram...");
       try {
         result = await fetchInstagram_snapinsta(url);
@@ -229,37 +176,33 @@ serve(async (req) => {
 
       if (!result?.downloadUrl) {
         console.log("Trying SaveFromIns fallback...");
-        try {
-          result = await fetchInstagram_savefromins(url);
-        } catch (e) {
-          errors.push(`savefromins: ${e.message}`);
-          console.error("SaveFromIns failed:", e.message);
+        try { result = await fetchInstagram_savefromins(url); } 
+        catch (e) { 
+          errors.push(`savefromins: ${e.message}`); 
         }
       }
 
       if (!result?.downloadUrl) {
         console.log("Trying igdownloader fallback...");
-        try {
-          result = await fetchInstagram_fallback(url);
-        } catch (e) {
-          errors.push(`igdownloader: ${e.message}`);
-          console.error("igdownloader failed:", e.message);
+        try { result = await fetchInstagram_fallback(url); } 
+        catch (e) { 
+          errors.push(`igdownloader: ${e.message}`); 
         }
       }
     }
 
     if (!result?.downloadUrl) {
-      console.error("All methods failed for", platform, ":", errors.join("; "));
+      console.error("All Instagram methods failed:", errors.join(" | "));
       return new Response(JSON.stringify({ 
         success: false, 
-        error: "Could not extract video. The video may be private, deleted, or the service is temporarily down. Try again later." 
+        error: "Failed to analyze video. The link may be private or services are temporarily down. Please try again in a few minutes." 
       }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
     const videoData = {
       platform,
       thumbnail: result.thumbnail || "",
-      title: result.title || `${platform === 'tiktok' ? 'TikTok' : 'Instagram'} Video`,
+      title: result.title || `${platform} Video`,
       author: result.author || "Unknown",
       duration: result.duration || "0:00",
       views: result.views || "N/A",
@@ -274,8 +217,7 @@ serve(async (req) => {
   } catch (error) {
     console.error("Server Error:", error);
     return new Response(JSON.stringify({ success: false, error: "Something went wrong. Please try again." }), { 
-      status: 500, 
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
     });
   }
 });
