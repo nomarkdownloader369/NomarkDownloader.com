@@ -27,39 +27,6 @@ function formatViews(views: number | string): string {
   return num.toString();
 }
 
-// ── NEW: Instagram Cobalt API (Free, Reliable, No Key Needed) ──
-async function fetchInstagram_cobalt(url: string) {
-  const res = await fetch('https://api.cobalt.tools/api/json', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      url: url,
-      aFormat: "mp3",
-      isNoTTWatermark: true
-    })
-  });
-
-  if (!res.ok) throw new Error("Cobalt API request failed");
-  const json = await res.json();
-
-  if (json.status === 'error' || !json.url) {
-    throw new Error(json.text || "Cobalt API error");
-  }
-
-  return {
-    thumbnail: "https://images.unsplash.com/photo-1611262588024-d12430b98920?w=500&q=80", // Default IG thumbnail
-    title: "Instagram Reel / Video",
-    author: "Instagram",
-    duration: "0:00",
-    views: "HD",
-    downloadUrl: json.url,
-    audioUrl: "",
-  };
-}
-
 // ── TikTok: tikwm.com (free, no key) ──
 async function fetchTikTok_tikwm(url: string) {
   const res = await fetch("https://www.tikwm.com/api/", {
@@ -205,7 +172,7 @@ serve(async (req) => {
       try {
         console.log("Trying tikwm for TikTok...");
         result = await fetchTikTok_tikwm(url);
-      } catch (e: any) {
+      } catch (e) {
         errors.push(`tikwm: ${e.message}`);
         console.error("tikwm failed:", e.message);
       }
@@ -214,7 +181,7 @@ serve(async (req) => {
         try {
           console.log("Trying tikcdn fallback...");
           result = await fetchTikTok_tikcdn(url);
-        } catch (e: any) {
+        } catch (e) {
           errors.push(`tikcdn: ${e.message}`);
           console.error("tikcdn failed:", e.message);
         }
@@ -225,38 +192,28 @@ serve(async (req) => {
         try {
           console.log("Trying RapidAPI fallback for TikTok...");
           result = await fetchInstagram_rapidapi(url, rapidApiKey);
-        } catch (e: any) {
+        } catch (e) {
           errors.push(`rapidapi: ${e.message}`);
           console.error("RapidAPI fallback failed:", e.message);
         }
       }
     } else {
-      // Instagram: Try Cobalt API First (New & Free)
-      try {
-        console.log("Trying Cobalt API for Instagram...");
-        result = await fetchInstagram_cobalt(url);
-      } catch (e: any) {
-        errors.push(`cobalt: ${e.message}`);
-        console.error("Cobalt failed:", e.message);
-      }
-
-      // Fallback 1: RapidAPI (Your old code)
-      if (!result?.downloadUrl && rapidApiKey) {
+      // Instagram: try RapidAPI first, then fallback
+      if (rapidApiKey) {
         try {
           console.log("Trying RapidAPI for Instagram...");
           result = await fetchInstagram_rapidapi(url, rapidApiKey);
-        } catch (e: any) {
+        } catch (e) {
           errors.push(`rapidapi: ${e.message}`);
           console.error("RapidAPI failed:", e.message);
         }
       }
 
-      // Fallback 2: igdownloader (Your old code)
       if (!result?.downloadUrl) {
         try {
           console.log("Trying igdownloader fallback...");
           result = await fetchInstagram_fallback(url);
-        } catch (e: any) {
+        } catch (e) {
           errors.push(`igdownloader: ${e.message}`);
           console.error("igdownloader failed:", e.message);
         }
