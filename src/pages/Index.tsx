@@ -21,30 +21,80 @@ export default function Index() {
   const [videoData, setVideoData] = useState<VideoInfo | null>(null);
   const [error, setError] = useState<string | undefined>();
 
-
   const handleAnalyze = async (url: string) => {
     setIsLoading(true);
     setError(undefined);
     setVideoData(null);
 
     try {
-      const { data, error: fnError } = await supabase.functions.invoke('analyze-video', {
-        body: { url },
-      });
+      // 1. فحص هل الرابط انستجرام أم تيك توك
+      if (url.toLowerCase().includes('instagram.com')) {
+        
+        // --- كود API الانستجرام ---
+        const response = await fetch('https://api.cobalt.tools/api/json', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            url: url,
+            aFormat: "mp3", // لجلب الصوت إذا لزم الأمر
+            isNoTTWatermark: true
+          })
+        });
 
-      if (fnError) {
-        setError("Failed to analyze video. Please try again.");
-        return;
+        if (!response.ok) throw new Error("فشل الاتصال بخادم الانستجرام");
+
+        const data = await response.json();
+
+        if (data.status === 'error') {
+          setError(String(data.text || "فشل تحميل فيديو الانستجرام، تأكد من صحة الرابط."));
+          return;
+        }
+
+        // تحويل نتيجة الانستجرام لتناسب شكل موقعك
+        setVideoData({
+          title: "Instagram Reel / Video",
+          author: "Instagram User",
+          // وضعنا صورة افتراضية للانستجرام لأن الـ API أحياناً لا يرسل صورة الغلاف
+          thumbnail: "https://images.unsplash.com/photo-1611262588024-d12430b98920?w=500&q=80",
+          duration: "IG",
+          views: "HD",
+          platform: "instagram",
+          downloadUrls: {
+            standard: data.url,
+            hd: data.url, // الانستجرام يأتي بجودة واحدة عالية غالباً
+          }
+        });
+
+      } else {
+        
+        // --- كود التيك توك القديم الخاص بك (لم نكسر فيه شيئاً) ---
+        const { data, error: fnError } = await supabase.functions.invoke('analyze-video', {
+          body: { url },
+        });
+
+        if (fnError) {
+          // استخدام String() هنا يمنع مشكلة الشاشة السوداء في حالة الخطأ
+          setError(String(fnError.message || "Failed to analyze video. Please try again."));
+          return;
+        }
+
+        if (!data.success) {
+          // منع الشاشة السوداء بتحويل الـ error إلى نص إجباري
+          setError(typeof data.error === 'string' ? data.error : "Failed to analyze video. Please try again.");
+          return;
+        }
+
+        setVideoData(data.data);
       }
 
-      if (!data.success) {
-        setError(data.error || "Failed to analyze video. Please try again.");
-        return;
-      }
-
-      setVideoData(data.data);
-    } catch {
-      setError("Network error. Please check your connection and try again.");
+    } catch (err: any) {
+      // هذه المنطقة كانت تسبب شاشة سوداء لو كان الخطأ (Object)، الآن تم إصلاحها
+      console.error("Analysis error:", err);
+      const errorMessage = err?.message ? String(err.message) : "Network error. Please check your connection and try again.";
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -96,17 +146,6 @@ export default function Index() {
         <meta name="twitter:title" content="NoMark - Free TikTok & Instagram Video Downloader" />
         <meta name="twitter:description" content="Download TikTok videos without watermark. Save Instagram Reels HD. Free, fast, no signup." />
         <meta name="twitter:image" content="https://nomarkdownloader.com/og-image.jpg" />
-        <script type="application/ld+json">{JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          "name": "NoMark Downloader",
-          "url": "https://nomarkdownloader.com",
-          "description": "Free TikTok video downloader without watermark. Download Instagram Reels in HD quality. No signup required.",
-          "applicationCategory": "UtilitiesApplication",
-          "operatingSystem": "All",
-          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "15420" }
-        })}</script>
       </Helmet>
       <Header />
       <main>
@@ -135,4 +174,4 @@ export default function Index() {
       <AdBanner />
     </div>
   );
-}
+      }
