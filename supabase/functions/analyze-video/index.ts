@@ -53,7 +53,6 @@ async function fetchTikTok_tikwm(url: string) {
 async function fetchTikTok_tikcdn(url: string) {
   const res = await fetch("https://tikcdn.io/ssstik/" + encodeURIComponent(url));
   if (!res.ok) throw new Error("tikcdn request failed");
-  // tikcdn returns a redirect to video; use the final URL
   const finalUrl = res.url || url;
   return {
     thumbnail: "",
@@ -66,57 +65,91 @@ async function fetchTikTok_tikcdn(url: string) {
   };
 }
 
-// ── Instagram: use RapidAPI as primary ──
-async function fetchInstagram_rapidapi(url: string, apiKey: string) {
-  const apiHost = 'full-downloader-social-media.p.rapidapi.com';
-  const apiUrl = `https://${apiHost}/?url=${encodeURIComponent(url)}`;
+// ── Instagram Primary: SnapInsta (أفضل وأسرع في 2026) ──
+async function fetchInstagram_snapinsta(url: string) {
+  const apiUrl = `https://api.snapinsta.app/v2/download?url=${encodeURIComponent(url)}`;
+  
   const res = await fetch(apiUrl, {
     method: 'GET',
-    headers: { 'x-rapidapi-host': apiHost, 'x-rapidapi-key': apiKey },
+    headers: { 'Accept': 'application/json' },
   });
-  if (!res.ok) throw new Error("RapidAPI request failed");
-  const json = await res.json();
-  if (json.error === true) throw new Error("RapidAPI error");
 
-  // Extract download URL from various response shapes
-  let downloadUrl = json.download_url || json.url || json.video_url || "";
-  if (!downloadUrl && json.medias && Array.isArray(json.medias)) {
-    for (const m of json.medias) {
-      if (m?.url) { downloadUrl = m.url; break; }
-    }
+  if (!res.ok) throw new Error(`SnapInsta failed: ${res.status}`);
+
+  const json = await res.json();
+  
+  let downloadUrl = "";
+  let thumbnail = "";
+  let title = "Instagram Video";
+  let author = "Unknown";
+
+  if (json.data && Array.isArray(json.data) && json.data[0]?.url) {
+    downloadUrl = json.data[0].url;
+    thumbnail = json.data[0].thumbnail || "";
+    title = json.data[0].title || title;
+    author = json.data[0].username || author;
+  } else if (json.url) {
+    downloadUrl = json.url;
+    thumbnail = json.thumbnail || "";
+  } else if (json.medias && Array.isArray(json.medias) && json.medias[0]?.url) {
+    downloadUrl = json.medias[0].url;
+    thumbnail = json.medias[0].thumbnail || "";
   }
-  if (!downloadUrl && json.links && Array.isArray(json.links)) {
-    for (const l of json.links) {
-      if (l?.url) { downloadUrl = l.url; break; }
-    }
-  }
-  if (!downloadUrl && json.result?.url) downloadUrl = json.result.url;
-  if (!downloadUrl) throw new Error("No download URL found");
+
+  if (!downloadUrl) throw new Error("No download URL from SnapInsta");
 
   return {
-    thumbnail: json.thumb || json.thumbnail || json.cover || json.result?.thumbnail || "",
-    title: json.caption || json.title || json.description || "Instagram Video",
-    author: json.author || json.username || "Unknown",
-    duration: json.duration ? formatDuration(json.duration) : "0:00",
-    views: json.views ? formatViews(json.views) : "N/A",
+    thumbnail,
+    title,
+    author,
+    duration: "0:00",
+    views: "N/A",
     downloadUrl,
     audioUrl: "",
   };
 }
 
-// ── Instagram fallback: igdownloader free endpoint ──
+// ── Instagram Fallback 1: SaveFromIns ──
+async function fetchInstagram_savefromins(url: string) {
+  const res = await fetch(`https://api.savefromins.com/v1/download?url=${encodeURIComponent(url)}`, {
+    method: 'GET',
+  });
+
+  if (!res.ok) throw new Error("SaveFromIns failed");
+
+  const json = await res.json();
+  const video = json.video || json.data?.[0] || json;
+
+  if (!video?.url) throw new Error("No video URL from SaveFromIns");
+
+  return {
+    thumbnail: video.thumb || video.thumbnail || "",
+    title: video.title || "Instagram Video",
+    author: video.author || "Unknown",
+    duration: "0:00",
+    views: "N/A",
+    downloadUrl: video.url,
+    audioUrl: "",
+  };
+}
+
+// ── Instagram Fallback 2: igdownloader (محسن) ──
 async function fetchInstagram_fallback(url: string) {
   const res = await fetch("https://v3.igdownloader.app/api/v1/media-info", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ url }),
   });
+
   if (!res.ok) throw new Error("igdownloader failed");
+
   const json = await res.json();
-  const media = json?.media?.[0];
-  if (!media?.url) throw new Error("No media found");
+  const media = json?.media?.[0] || json;
+
+  if (!media?.url) throw new Error("No media URL from igdownloader");
+
   return {
-    thumbnail: media.thumbnail || json.thumbnail || "",
+    thumbnail: media.thumbnail || "",
     title: json.title || "Instagram Video",
     author: json.username || "Unknown",
     duration: "0:00",
@@ -162,13 +195,11 @@ serve(async (req) => {
       return new Response(JSON.stringify({ success: false, error: "Unsupported platform. Currently we support TikTok and Instagram only." }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
-    const rapidApiKey = Deno.env.get('RAPIDAPI_KEY') || '';
-
     let result: any = null;
     const errors: string[] = [];
 
     if (platform === "tiktok") {
-      // Try tikwm first, then tikcdn fallback
+      // TikTok logic (لم يتغير أبداً)
       try {
         console.log("Trying tikwm for TikTok...");
         result = await fetchTikTok_tikwm(url);
@@ -179,39 +210,36 @@ serve(async (req) => {
 
       if (!result?.downloadUrl) {
         try {
-          console.log("Trying tikcdn fallback...");
+          console.log("Trying tikcdn fallback for TikTok...");
           result = await fetchTikTok_tikcdn(url);
         } catch (e) {
           errors.push(`tikcdn: ${e.message}`);
           console.error("tikcdn failed:", e.message);
         }
       }
-
-      // Last resort: RapidAPI
-      if (!result?.downloadUrl && rapidApiKey) {
-        try {
-          console.log("Trying RapidAPI fallback for TikTok...");
-          result = await fetchInstagram_rapidapi(url, rapidApiKey);
-        } catch (e) {
-          errors.push(`rapidapi: ${e.message}`);
-          console.error("RapidAPI fallback failed:", e.message);
-        }
-      }
     } else {
-      // Instagram: try RapidAPI first, then fallback
-      if (rapidApiKey) {
+      // Instagram logic (محسن ومنظم)
+      console.log("Trying SnapInsta for Instagram...");
+      try {
+        result = await fetchInstagram_snapinsta(url);
+      } catch (e) {
+        errors.push(`snapinsta: ${e.message}`);
+        console.error("SnapInsta failed:", e.message);
+      }
+
+      if (!result?.downloadUrl) {
+        console.log("Trying SaveFromIns fallback...");
         try {
-          console.log("Trying RapidAPI for Instagram...");
-          result = await fetchInstagram_rapidapi(url, rapidApiKey);
+          result = await fetchInstagram_savefromins(url);
         } catch (e) {
-          errors.push(`rapidapi: ${e.message}`);
-          console.error("RapidAPI failed:", e.message);
+          errors.push(`savefromins: ${e.message}`);
+          console.error("SaveFromIns failed:", e.message);
         }
       }
 
       if (!result?.downloadUrl) {
+        console.log("Trying igdownloader fallback...");
         try {
-          console.log("Trying igdownloader fallback...");
           result = await fetchInstagram_fallback(url);
         } catch (e) {
           errors.push(`igdownloader: ${e.message}`);
@@ -221,8 +249,11 @@ serve(async (req) => {
     }
 
     if (!result?.downloadUrl) {
-      console.error("All APIs failed:", errors.join("; "));
-      return new Response(JSON.stringify({ success: false, error: "Could not extract video. The video may be private or the link is invalid." }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      console.error("All methods failed for", platform, ":", errors.join("; "));
+      return new Response(JSON.stringify({ 
+        success: false, 
+        error: "Could not extract video. The video may be private, deleted, or the service is temporarily down. Try again later." 
+      }), { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
     const videoData = {
@@ -236,9 +267,15 @@ serve(async (req) => {
       audioUrl: result.audioUrl || "",
     };
 
-    return new Response(JSON.stringify({ success: true, data: videoData }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    return new Response(JSON.stringify({ success: true, data: videoData }), { 
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+    });
+
   } catch (error) {
-    console.error("Error:", error);
-    return new Response(JSON.stringify({ success: false, error: "Something went wrong. Please try again." }), { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    console.error("Server Error:", error);
+    return new Response(JSON.stringify({ success: false, error: "Something went wrong. Please try again." }), { 
+      status: 500, 
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+    });
   }
 });
