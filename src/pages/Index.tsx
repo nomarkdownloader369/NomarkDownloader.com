@@ -143,4 +143,4 @@ export default function Index() {
       <AdBanner />
     </div>
   );
-         }
+    }
