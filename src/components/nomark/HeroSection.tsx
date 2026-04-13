@@ -13,7 +13,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSectionProps) {
   const { t } = useTranslation();
-  const [url, setUrl] = useState("");
+  const[url, setUrl] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,12 +69,12 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t('hero.processing') || "Processing video..."}
+                    {t('hero.processing', 'Processing video...')}
                   </>
                 ) : (
                   <>
                     <Download className="mr-2 h-5 w-5" />
-                    {t('hero.cta') || "Download Now – No Watermark"}
+                    {t('hero.cta', 'Download Now – No Watermark')}
                   </>
                 )}
               </Button>
@@ -92,7 +92,7 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
 
         {/* 🔥 NEW TRUST TEXT */}
         <p className="mt-3 text-sm text-muted-foreground">
-          Fast, free, no watermark — we do not store your videos
+          {t('hero.trust_text', 'Fast, free, no watermark — we do not store your videos')}
         </p>
 
         {resultSlot}
@@ -100,23 +100,23 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         <div className="mt-10 flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-2">
             <Download className="h-4 w-4 text-primary" />
-            <span>Unlimited Downloads</span>
+            <span>{t('hero.feature_unlimited', 'Unlimited Downloads')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Shield className="h-4 w-4 text-primary" />
-            <span>Safe & Private</span>
+            <span>{t('hero.feature_safe', 'Safe & Private')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-primary" />
-            <span>Fast Processing</span>
+            <span>{t('hero.feature_fast', 'Fast Processing')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Smartphone className="h-4 w-4 text-primary" />
-            <span>All Devices</span>
+            <span>{t('hero.feature_devices', 'All Devices')}</span>
           </div>
         </div>
 
       </div>
     </section>
   );
-        }
+            }
