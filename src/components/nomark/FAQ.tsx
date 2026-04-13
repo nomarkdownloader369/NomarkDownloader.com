@@ -107,4 +107,4 @@ export function FAQ() {
       </div>
     </section>
   );
-            }
+      }
