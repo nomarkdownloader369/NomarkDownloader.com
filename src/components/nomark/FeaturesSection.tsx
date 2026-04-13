@@ -1,44 +1,41 @@
 import { Zap, Shield, Smartphone, Cloud, Infinity, Globe } from "lucide-react";
-import { useTranslation } from "react-i18next";
 
 export function FeaturesSection() {
-  const { t } = useTranslation();
-
-  const features =[
+  const features = [
     {
       icon: Zap,
-      title: t('features.fast'),
-      desc: t('features.fastDesc'),
+      title: "Lightning Fast Processing",
+      desc: "Download your videos in seconds with our optimized high-speed servers.",
       gradient: "from-yellow-400 to-orange-500"
     },
     {
       icon: Shield,
-      title: t('features.safe'),
-      desc: t('features.safeDesc'),
+      title: "100% Safe & Private",
+      desc: "We never store your videos or personal data. Your privacy is fully protected.",
       gradient: "from-green-400 to-emerald-500"
     },
     {
       icon: Smartphone,
-      title: t('features.everywhere'),
-      desc: t('features.everywhereDesc'),
+      title: "Works on All Devices",
+      desc: "Compatible with Android, iPhone, Windows, Mac, and all modern browsers.",
       gradient: "from-blue-400 to-cyan-500"
     },
     {
       icon: Cloud,
-      title: t('features.noInstall'),
-      desc: t('features.noInstallDesc'),
+      title: "No App Required",
+      desc: "Use directly in your browser. No downloads, no installation, no signup.",
       gradient: "from-purple-400 to-pink-500"
     },
     {
       icon: Infinity,
-      title: t('features.unlimited'),
-      desc: t('features.unlimitedDesc'),
+      title: "Unlimited Downloads",
+      desc: "Download as many videos as you want without restrictions or hidden limits.",
       gradient: "from-emerald-400 to-teal-500"
     },
     {
       icon: Globe,
-      title: t('features.global'),
-      desc: t('features.globalDesc'),
+      title: "Worldwide Access",
+      desc: "Available globally with fast servers ensuring smooth performance everywhere.",
       gradient: "from-teal-400 to-cyan-500"
     }
   ];
@@ -49,15 +46,15 @@ export function FeaturesSection() {
 
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20 mb-4">
-            {t('features.badge')}
+            Why Choose NoMark
           </span>
 
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-            {t('features.title')}
+            Powerful Video Downloader Built for Speed
           </h2>
 
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t('features.subtitle')}
+            Download TikTok videos in HD without watermark — fast, secure, and unlimited
           </p>
         </div>
 
@@ -85,7 +82,7 @@ export function FeaturesSection() {
 
         <div className="mt-16 text-center">
           <p className="text-sm text-muted-foreground mb-6">
-            {t('features.trustedBy')}
+            Trusted by thousands of users worldwide
           </p>
 
           <div className="flex justify-center gap-8 opacity-70">
@@ -99,4 +96,4 @@ export function FeaturesSection() {
       </div>
     </section>
   );
-        }
+      }
