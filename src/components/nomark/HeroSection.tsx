@@ -69,12 +69,12 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t('hero.analyzing')}
+                    {t('hero.processing') || "Processing video..."}
                   </>
                 ) : (
                   <>
                     <Download className="mr-2 h-5 w-5" />
-                    {t('hero.cta')}
+                    {t('hero.cta') || "Download Now – No Watermark"}
                   </>
                 )}
               </Button>
@@ -90,8 +90,9 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
           )}
         </form>
 
+        {/* 🔥 NEW TRUST TEXT */}
         <p className="mt-3 text-sm text-muted-foreground">
-          {t('hero.urgency')}
+          Fast, free, no watermark — we do not store your videos
         </p>
 
         {resultSlot}
@@ -99,23 +100,23 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         <div className="mt-10 flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-2">
             <Download className="h-4 w-4 text-primary" />
-            <span>{t('hero.trust1')}</span>
+            <span>Unlimited Downloads</span>
           </div>
           <div className="flex items-center gap-2">
             <Shield className="h-4 w-4 text-primary" />
-            <span>{t('hero.trust2')}</span>
+            <span>Safe & Private</span>
           </div>
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-primary" />
-            <span>{t('hero.trust3')}</span>
+            <span>Fast Processing</span>
           </div>
           <div className="flex items-center gap-2">
             <Smartphone className="h-4 w-4 text-primary" />
-            <span>{t('hero.trust4')}</span>
+            <span>All Devices</span>
           </div>
         </div>
 
       </div>
     </section>
   );
-            }
+    }
