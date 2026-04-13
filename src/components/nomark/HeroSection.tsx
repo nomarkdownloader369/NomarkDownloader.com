@@ -69,12 +69,12 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t('hero.processing', "Processing video...")}
+                    {t('hero.analyzing')}
                   </>
                 ) : (
                   <>
                     <Download className="mr-2 h-5 w-5" />
-                    {t('hero.cta', "Download Now")}
+                    {t('hero.cta')}
                   </>
                 )}
               </Button>
@@ -91,7 +91,7 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         </form>
 
         <p className="mt-3 text-sm text-muted-foreground">
-          {t('hero.trustText', "Fast, free, no watermark — we do not store your videos")}
+          {t('hero.urgency')}
         </p>
 
         {resultSlot}
@@ -99,23 +99,23 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         <div className="mt-10 flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-2">
             <Download className="h-4 w-4 text-primary" />
-            <span>{t('hero.features.unlimited', "Unlimited Downloads")}</span>
+            <span>{t('hero.trust1')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Shield className="h-4 w-4 text-primary" />
-            <span>{t('hero.features.safe', "Safe & Private")}</span>
+            <span>{t('hero.trust2')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-primary" />
-            <span>{t('hero.features.fast', "Fast Processing")}</span>
+            <span>{t('hero.trust3')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Smartphone className="h-4 w-4 text-primary" />
-            <span>{t('hero.features.devices', "All Devices")}</span>
+            <span>{t('hero.trust4')}</span>
           </div>
         </div>
 
       </div>
     </section>
   );
-        }
+            }
