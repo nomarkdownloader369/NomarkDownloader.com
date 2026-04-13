@@ -48,7 +48,7 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
 
         <form onSubmit={handleSubmit} className="mt-10">
           <div className="relative max-w-2xl mx-auto">
-            <div className="relative flex flex-col sm:flex-row gap-3 sm:gap-0 p-2 rounded-2xl border border-border/30 bg-black/60 backdrop-blur-xl">
+            <div className="relative flex flex-col sm:flex-row gap-3 sm:gap-0 p-2 rounded-2xl border border-border/30 bg-black/60 backdrop-blur-xl" dir="ltr">
               
               <div className="relative flex-1">
                 <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
@@ -90,14 +90,15 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
           )}
         </form>
 
-        {/* 🔥 NEW TRUST TEXT */}
-        <p className="mt-3 text-sm text-muted-foreground">
+        {/* 🔥 تم إضافة dir="ltr" للنص الإنجليزي ليكون التنسيق سليماً */}
+        <p className="mt-3 text-sm text-muted-foreground" dir="ltr">
           Fast, free, no watermark — we do not store your videos
         </p>
 
         {resultSlot}
 
-        <div className="mt-10 flex flex-wrap justify-center gap-6">
+        {/* 🔥 تم إضافة dir="ltr" لتنسيق أيقونات المميزات باللغة الإنجليزية */}
+        <div className="mt-10 flex flex-wrap justify-center gap-6" dir="ltr">
           <div className="flex items-center gap-2">
             <Download className="h-4 w-4 text-primary" />
             <span>Unlimited Downloads</span>
@@ -119,4 +120,4 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
       </div>
     </section>
   );
-      }
+          }
