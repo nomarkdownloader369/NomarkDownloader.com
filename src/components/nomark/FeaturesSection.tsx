@@ -1,7 +1,7 @@
 import { Zap, Shield, Smartphone, Cloud, Infinity, Globe } from "lucide-react";
 
 export function FeaturesSection() {
-  const features = [
+  const features =[
     {
       icon: Zap,
       title: "Lightning Fast Processing",
@@ -41,7 +41,8 @@ export function FeaturesSection() {
   ];
 
   return (
-    <section id="features" className="relative px-4 py-16 sm:py-20 md:py-28">
+    // 🔥 تم إضافة dir="ltr" هنا لضبط اتجاه النص الإنجليزي والبطاقات
+    <section id="features" className="relative px-4 py-16 sm:py-20 md:py-28" dir="ltr">
       <div className="mx-auto max-w-6xl">
 
         <div className="text-center mb-16">
@@ -60,7 +61,7 @@ export function FeaturesSection() {
 
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => (
-            <div key={index} className="group rounded-2xl border border-border bg-secondary/30 p-6 hover:border-primary/30 transition-all">
+            <div key={index} className="group rounded-2xl border border-border bg-secondary/30 p-6 hover:border-primary/30 transition-all text-left">
 
               <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} p-0.5`}>
                 <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-background">
@@ -96,4 +97,4 @@ export function FeaturesSection() {
       </div>
     </section>
   );
-                }
+}
