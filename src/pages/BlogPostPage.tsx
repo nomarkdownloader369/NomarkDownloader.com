@@ -191,4 +191,4 @@ export default function BlogPostPage() {
       <Footer />
     </div>
   );
-        }
+              }
