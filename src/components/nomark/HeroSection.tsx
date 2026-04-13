@@ -119,4 +119,4 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
       </div>
     </section>
   );
-    }
+            }
