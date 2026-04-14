@@ -27,7 +27,7 @@ import blog19 from "@/assets/blog/blog-19.jpg";
 import blog20 from "@/assets/blog/blog-20.jpg";
 import blog21 from "@/assets/blog/blog-21.jpg";
 
-interface BlogPost {
+export interface BlogPost {
   slug: string;
   titleKey: string;
   excerptKey: string;
@@ -37,7 +37,7 @@ interface BlogPost {
   image: string;
 }
 
-const blogPosts: BlogPost[] =[
+export const blogPosts: BlogPost[] = [
   { slug: "download-tiktok-without-watermark-2026-guide", titleKey: "blog.post4Title", excerptKey: "blog.post4Excerpt", date: "2026-03-28", readTime: "8 min", category: "TikTok", image: blog1 },
   { slug: "best-free-tiktok-downloader-no-signup", titleKey: "blog.post5Title", excerptKey: "blog.post5Excerpt", date: "2026-03-25", readTime: "7 min", category: "Guide", image: blog2 },
   { slug: "download-instagram-reels-without-watermark", titleKey: "blog.post6Title", excerptKey: "blog.post6Excerpt", date: "2026-03-20", readTime: "8 min", category: "Instagram", image: blog3 },
@@ -113,4 +113,4 @@ export default function BlogPage() {
       <Footer />
     </div>
   );
-    }
+   }
