@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
 import en from './en.json';
 import ar from './ar.json';
 import fr from './fr.json';
@@ -9,27 +8,20 @@ import es from './es.json';
 import tr from './tr.json';
 
 i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: { translation: en },
-      ar: { translation: ar },
-      fr: { translation: fr },
-      es: { translation: es },
-      tr: { translation: tr },
-    },
-
-    fallbackLng: 'en',
-
-    detection: {
-      order: ['navigator'], // يعتمد فقط على لغة المتصفح
-      caches: [], // 🚫 تعطيل الكاش نهائياً
-    },
-
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+.use(LanguageDetector)
+.use(initReactI18next)
+.init({
+resources: {
+en: { translation: en },
+ar: { translation: ar },
+fr: { translation: fr },
+es: { translation: es },
+tr: { translation: tr },
+},
+fallbackLng: 'en',
+interpolation: {
+escapeValue: false,
+},
+});
 
 export default i18n;
