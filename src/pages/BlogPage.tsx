@@ -27,8 +27,7 @@ import blog19 from "@/assets/blog/blog-19.jpg";
 import blog20 from "@/assets/blog/blog-20.jpg";
 import blog21 from "@/assets/blog/blog-21.jpg";
 
-// تعريف الأنواع (TypeScript Interfaces) لمنع أخطاء البناء
-export interface BlogPost {
+interface BlogPost {
   slug: string;
   titleKey: string;
   excerptKey: string;
@@ -38,7 +37,7 @@ export interface BlogPost {
   image: string;
 }
 
-export const blogPosts: BlogPost[] =[
+const blogPosts: BlogPost[] =[
   { slug: "download-tiktok-without-watermark-2026-guide", titleKey: "blog.post4Title", excerptKey: "blog.post4Excerpt", date: "2026-03-28", readTime: "8 min", category: "TikTok", image: blog1 },
   { slug: "best-free-tiktok-downloader-no-signup", titleKey: "blog.post5Title", excerptKey: "blog.post5Excerpt", date: "2026-03-25", readTime: "7 min", category: "Guide", image: blog2 },
   { slug: "download-instagram-reels-without-watermark", titleKey: "blog.post6Title", excerptKey: "blog.post6Excerpt", date: "2026-03-20", readTime: "8 min", category: "Instagram", image: blog3 },
@@ -91,7 +90,7 @@ export default function BlogPage() {
                 className="group relative rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col"
               >
                 <div className="aspect-video overflow-hidden">
-                  <img src={post.image} alt={t(post.titleKey)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                  <img src={post.image} alt={t(post.titleKey) as string} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
                 </div>
                 <div className="p-5 flex flex-col flex-grow">
                   <h2 className="text-base sm:text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">{t(post.titleKey)}</h2>
