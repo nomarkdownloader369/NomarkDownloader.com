@@ -1,41 +1,44 @@
 import { Zap, Shield, Smartphone, Cloud, Infinity, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function FeaturesSection() {
-  const features = [
+  const { t } = useTranslation();
+
+  const features =[
     {
       icon: Zap,
-      title: "Lightning Fast Processing",
-      desc: "Download your videos in seconds with our optimized high-speed servers.",
+      title: t('features.fast', 'Lightning Fast Processing'),
+      desc: t('features.fastDesc', 'Download your videos in seconds with our optimized high-speed servers.'),
       gradient: "from-yellow-400 to-orange-500"
     },
     {
       icon: Shield,
-      title: "100% Safe & Private",
-      desc: "We never store your videos or personal data. Your privacy is fully protected.",
+      title: t('features.safe', '100% Safe & Private'),
+      desc: t('features.safeDesc', 'We never store your videos or personal data. Your privacy is fully protected.'),
       gradient: "from-green-400 to-emerald-500"
     },
     {
       icon: Smartphone,
-      title: "Works on All Devices",
-      desc: "Compatible with Android, iPhone, Windows, Mac, and all modern browsers.",
+      title: t('features.everywhere', 'Works on All Devices'),
+      desc: t('features.everywhereDesc', 'Compatible with Android, iPhone, Windows, Mac, and all modern browsers.'),
       gradient: "from-blue-400 to-cyan-500"
     },
     {
       icon: Cloud,
-      title: "No App Required",
-      desc: "Use directly in your browser. No downloads, no installation, no signup.",
+      title: t('features.noInstall', 'No App Required'),
+      desc: t('features.noInstallDesc', 'Use directly in your browser. No downloads, no installation, no signup.'),
       gradient: "from-purple-400 to-pink-500"
     },
     {
       icon: Infinity,
-      title: "Unlimited Downloads",
-      desc: "Download as many videos as you want without restrictions or hidden limits.",
+      title: t('features.unlimited', 'Unlimited Downloads'),
+      desc: t('features.unlimitedDesc', 'Download as many videos as you want without restrictions or hidden limits.'),
       gradient: "from-emerald-400 to-teal-500"
     },
     {
       icon: Globe,
-      title: "Worldwide Access",
-      desc: "Available globally with fast servers ensuring smooth performance everywhere.",
+      title: t('features.global', 'Worldwide Access'),
+      desc: t('features.globalDesc', 'Available globally with fast servers ensuring smooth performance everywhere.'),
       gradient: "from-teal-400 to-cyan-500"
     }
   ];
@@ -46,15 +49,15 @@ export function FeaturesSection() {
 
         <div className="text-center mb-16">
           <span className="inline-block px-4 py-2 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20 mb-4">
-            Why Choose NoMark
+            {t('features.badge', 'Why Choose NoMark')}
           </span>
 
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-            Powerful Video Downloader Built for Speed
+            {t('features.title', 'Powerful Video Downloader Built for Speed')}
           </h2>
 
           <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
-            Download TikTok videos in HD without watermark — fast, secure, and unlimited
+            {t('features.subtitle', 'Download TikTok videos in HD without watermark — fast, secure, and unlimited')}
           </p>
         </div>
 
@@ -82,7 +85,7 @@ export function FeaturesSection() {
 
         <div className="mt-16 text-center">
           <p className="text-sm text-muted-foreground mb-6">
-            Trusted by thousands of users worldwide
+            {t('features.trustedBy', 'Trusted by thousands of users worldwide')}
           </p>
 
           <div className="flex justify-center gap-8 opacity-70">
@@ -96,4 +99,4 @@ export function FeaturesSection() {
       </div>
     </section>
   );
-                                                                                                                     }
+              }
