@@ -67,19 +67,28 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>NoMark Blog - TikTok & Instagram Download Tips & Guides</title>
-        <meta name="description" content="Learn how to download TikTok videos without watermark and save Instagram Reels in HD. Free guides, tips, and tutorials." />
+        <title>NoMark Blog</title>
+        <meta name="description" content="Best guides to download TikTok and Instagram videos without watermark." />
         <link rel="canonical" href="https://nomarkdownloader.com/blog" />
       </Helmet>
+
       <Header />
+
       <main className="pt-24 pb-16 px-4 flex-grow">
         <div className="mx-auto max-w-4xl">
+
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-4">
-              {t('blog.badge')}
+              {t('blog.badge', 'Blog')}
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">{t('blog.title')}</h1>
-            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">{t('blog.subtitle')}</p>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+              {t('blog.title', 'Blog')}
+            </h1>
+
+            <p className="text-muted-foreground text-sm sm:text-base max-w-xl mx-auto">
+              {t('blog.subtitle', 'Tips & Guides')}
+            </p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -87,29 +96,44 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 to={`/blog/${post.slug}`}
-                className="group relative rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col"
+                className="group rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col"
               >
                 <div className="aspect-video overflow-hidden">
-                  <img src={post.image} alt={t(post.titleKey) as string} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                  <img
+                    src={post.image || "/placeholder.jpg"}
+                    alt={t(post.titleKey, post.slug)}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
                 </div>
+
                 <div className="p-5 flex flex-col flex-grow">
-                  <h2 className="text-base sm:text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">{t(post.titleKey)}</h2>
-                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 mb-4 flex-grow">{t(post.excerptKey)}</p>
+                  <h2 className="text-base sm:text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">
+                    {t(post.titleKey, post.slug)}
+                  </h2>
+
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 mb-4 flex-grow">
+                    {t(post.excerptKey, "Read this article")}
+                  </p>
+
                   <div className="flex items-center justify-between text-xs text-muted-foreground mt-auto">
                     <div className="flex items-center gap-1.5">
                       <Calendar className="h-3 w-3" />
                       <span>{post.date}</span>
                     </div>
+
                     <span className="flex items-center gap-1 text-primary font-medium group-hover:gap-2 transition-all">
-                      {t('blog.readMore')} <ArrowRight className="h-3 w-3" />
+                      {t('blog.readMore', 'Read')} <ArrowRight className="h-3 w-3" />
                     </span>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
+
         </div>
       </main>
+
       <Footer />
     </div>
   );
