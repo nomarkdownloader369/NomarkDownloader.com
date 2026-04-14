@@ -27,8 +27,8 @@ export default function BlogPostPage() {
     );
   }
 
-  const contentKey = \`blog.\${post.slug.replace(/-/g, '_')}_content\`;
-  const postUrl = \`https://nomarkdownloader.com/blog/\${post.slug}\`;
+  const contentKey = `blog.${post.slug.replace(/-/g, '_')}_content`;
+  const postUrl = `https://nomarkdownloader.com/blog/${post.slug}`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -97,7 +97,7 @@ export default function BlogPostPage() {
             <h3 className="text-lg font-semibold text-foreground mb-4">{t('blog.relatedArticles')}</h3>
             <div className="grid gap-4 sm:grid-cols-2">
               {blogPosts.filter((p) => p.slug !== slug).slice(0, 4).map((relatedPost) => (
-                <Link key={relatedPost.slug} to={\`/blog/\${relatedPost.slug}\`} className="group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors">
+                <Link key={relatedPost.slug} to={`/blog/${relatedPost.slug}`} className="group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors">
                   <span className="text-[10px] font-medium uppercase tracking-wider text-primary/60">{relatedPost.category}</span>
                   <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors mt-1 line-clamp-2">{t(relatedPost.titleKey)}</h4>
                 </Link>
@@ -115,4 +115,4 @@ export default function BlogPostPage() {
       <Footer />
     </div>
   );
-    }
+              }
