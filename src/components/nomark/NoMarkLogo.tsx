@@ -1,17 +1,34 @@
-export function NoMarkLogo({ className = "h-10 w-10" }: { className?: string }) {
+import { cn } from "@/lib/utils";
+
+export function NoMarkLogo({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      viewBox="0 0 120 120"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("h-9 w-9", className)}
+    >
+      <rect width="120" height="120" rx="26" fill="#0F0F0F" />
       <defs>
-        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="hsl(160, 84%, 39%)" />
-          <stop offset="100%" stopColor="hsl(174, 72%, 46%)" />
+        <linearGradient id="nomark-grad" x1="36" y1="30" x2="84" y2="90" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#34D399" />
+          <stop offset="1" stopColor="#10B981" />
         </linearGradient>
       </defs>
-      <rect width="512" height="512" rx="96" fill="hsl(220, 20%, 4%)" />
-      <rect x="16" y="16" width="480" height="480" rx="80" fill="none" stroke="url(#logoGrad)" strokeWidth="3" opacity="0.3" />
-      <path d="M256 140 L256 320" stroke="url(#logoGrad)" strokeWidth="36" strokeLinecap="round" />
-      <path d="M180 260 L256 336 L332 260" stroke="url(#logoGrad)" strokeWidth="36" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      <rect x="148" y="352" width="216" height="32" rx="16" fill="url(#logoGrad)" opacity="0.9" />
+      <path
+        d="M38 48 L60 70 L82 48"
+        stroke="url(#nomark-grad)"
+        strokeWidth="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      <path
+        d="M40 85 L80 85"
+        stroke="url(#nomark-grad)"
+        strokeWidth="10"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
