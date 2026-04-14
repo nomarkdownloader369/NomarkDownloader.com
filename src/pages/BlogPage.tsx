@@ -114,4 +114,4 @@ export default function BlogPage() {
       <Footer />
     </div>
   );
-   }
+    }
