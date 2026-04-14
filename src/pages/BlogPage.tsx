@@ -27,7 +27,18 @@ import blog19 from "@/assets/blog/blog-19.jpg";
 import blog20 from "@/assets/blog/blog-20.jpg";
 import blog21 from "@/assets/blog/blog-21.jpg";
 
-const blogPosts = [
+// تعريف الأنواع (TypeScript Interfaces) لمنع أخطاء البناء
+export interface BlogPost {
+  slug: string;
+  titleKey: string;
+  excerptKey: string;
+  date: string;
+  readTime: string;
+  category: string;
+  image: string;
+}
+
+export const blogPosts: BlogPost[] =[
   { slug: "download-tiktok-without-watermark-2026-guide", titleKey: "blog.post4Title", excerptKey: "blog.post4Excerpt", date: "2026-03-28", readTime: "8 min", category: "TikTok", image: blog1 },
   { slug: "best-free-tiktok-downloader-no-signup", titleKey: "blog.post5Title", excerptKey: "blog.post5Excerpt", date: "2026-03-25", readTime: "7 min", category: "Guide", image: blog2 },
   { slug: "download-instagram-reels-without-watermark", titleKey: "blog.post6Title", excerptKey: "blog.post6Excerpt", date: "2026-03-20", readTime: "8 min", category: "Instagram", image: blog3 },
@@ -51,20 +62,18 @@ const blogPosts = [
   { slug: "free-social-media-video-downloader-all-platforms", titleKey: "blog.post21Title", excerptKey: "blog.post21Excerpt", date: "2026-04-14", readTime: "8 min", category: "Guide", image: blog21 },
 ];
 
-export { blogPosts };
-
 export default function BlogPage() {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
         <title>NoMark Blog - TikTok & Instagram Download Tips & Guides</title>
         <meta name="description" content="Learn how to download TikTok videos without watermark and save Instagram Reels in HD. Free guides, tips, and tutorials." />
         <link rel="canonical" href="https://nomarkdownloader.com/blog" />
       </Helmet>
       <Header />
-      <main className="pt-24 pb-16 px-4">
+      <main className="pt-24 pb-16 px-4 flex-grow">
         <div className="mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-4">
@@ -79,15 +88,15 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 to={`/blog/${post.slug}`}
-                className="group relative rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 overflow-hidden"
+                className="group relative rounded-2xl border border-border bg-card hover:border-primary/30 transition-all duration-300 overflow-hidden flex flex-col"
               >
                 <div className="aspect-video overflow-hidden">
                   <img src={post.image} alt={t(post.titleKey)} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
                 </div>
-                <div className="p-5">
+                <div className="p-5 flex flex-col flex-grow">
                   <h2 className="text-base sm:text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors line-clamp-2">{t(post.titleKey)}</h2>
-                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 mb-4">{t(post.excerptKey)}</p>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-3 mb-4 flex-grow">{t(post.excerptKey)}</p>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground mt-auto">
                     <div className="flex items-center gap-1.5">
                       <Calendar className="h-3 w-3" />
                       <span>{post.date}</span>
