@@ -5,7 +5,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export function FAQ() {
   const { t } = useTranslation();
 
-  const faqs = [
+  const faqs =[
     {
       question: t('faq.q1') || "How to download TikTok videos without watermark?",
       answer: t('faq.a1') || "Paste your TikTok video link into the input box, click Download, and get your video instantly without watermark in HD quality."
@@ -91,20 +91,18 @@ export function FAQ() {
           </div>
         </div>
 
-        {/* 🔥 SEO BLOCK (مهم جداً) */}
+        {/* 🔥 SEO BLOCK (تم إصلاحه وربطه بالترجمة بنجاح!) */}
         <div className="mt-12 p-6 rounded-2xl bg-card border border-border">
           <h3 className="text-lg font-semibold text-foreground mb-3">
-            Free TikTok Downloader Without Watermark
+            {t('faq.seoTitle') || "Free TikTok Downloader Without Watermark"}
           </h3>
 
           <p className="text-sm text-muted-foreground leading-relaxed">
-            NoMark is a fast and free TikTok downloader that lets you save videos without watermark in HD quality.
-            You can also download videos online without installing any app. Just paste the video link and download instantly.
-            Works on all devices including mobile and desktop.
+            {t('faq.seoText') || "NoMark is a fast and free TikTok downloader that lets you save videos without watermark in HD quality. You can also download videos online without installing any app. Just paste the video link and download instantly. Works on all devices including mobile and desktop."}
           </p>
         </div>
 
       </div>
     </section>
   );
-      }
+              }
