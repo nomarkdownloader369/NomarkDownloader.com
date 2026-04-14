@@ -1,5 +1,5 @@
 import { useState, ReactNode } from "react";
-import { Link as LinkIcon, Sparkles, Loader2, AlertCircle, Play, Download, CheckCircle, Shield, Smartphone, Zap } from "lucide-react";
+import { Link as LinkIcon, Sparkles, Loader2, AlertCircle, Download, Shield, Smartphone, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,9 +23,10 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
   return (
     <section className="relative px-4 pt-24 pb-4 md:pt-32 md:pb-6 overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[900px] md:h-[900px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,255,166,0.15) 0%, rgba(0,229,255,0.08) 50%, transparent 70%)', filter: 'blur(80px)' }} />
-        <div className="absolute right-0 top-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.12) 0%, transparent 70%)', filter: 'blur(60px)' }} />
-        <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(rgba(0,255,166,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,166,0.04) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        <div className="absolute left-1/2 top-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] md:w-[900px] md:h-[900px] rounded-full" 
+             style={{ background: 'radial-gradient(circle, rgba(0,255,166,0.15) 0%, rgba(0,229,255,0.08) 50%, transparent 70%)', filter: 'blur(80px)' }} />
+        <div className="absolute right-0 top-0 w-[300px] h-[300px] md:w-[400px] md:h-[400px] rounded-full" 
+             style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.12) 0%, transparent 70%)', filter: 'blur(60px)' }} />
       </div>
 
       <div className="mx-auto max-w-4xl text-center">
@@ -49,7 +50,6 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         <form onSubmit={handleSubmit} className="mt-10">
           <div className="relative max-w-2xl mx-auto">
             <div className="relative flex flex-col sm:flex-row gap-3 sm:gap-0 p-2 rounded-2xl border border-border/30 bg-black/60 backdrop-blur-xl">
-              
               <div className="relative flex-1">
                 <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
@@ -69,16 +69,15 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {t('hero.processing') || "Processing video..."}
+                    {t('hero.analyzing')}
                   </>
                 ) : (
                   <>
                     <Download className="mr-2 h-5 w-5" />
-                    {t('hero.cta') || "Download Now – No Watermark"}
+                    {t('hero.cta')}
                   </>
                 )}
               </Button>
-
             </div>
           </div>
 
@@ -90,9 +89,8 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
           )}
         </form>
 
-        {/* 🔥 NEW TRUST TEXT */}
         <p className="mt-3 text-sm text-muted-foreground">
-          Fast, free, no watermark — we do not store your videos
+          {t('hero.urgency')}
         </p>
 
         {resultSlot}
@@ -100,23 +98,22 @@ export function HeroSection({ onAnalyze, isLoading, error, resultSlot }: HeroSec
         <div className="mt-10 flex flex-wrap justify-center gap-6">
           <div className="flex items-center gap-2">
             <Download className="h-4 w-4 text-primary" />
-            <span>Unlimited Downloads</span>
+            <span>{t('hero.trust1')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Shield className="h-4 w-4 text-primary" />
-            <span>Safe & Private</span>
+            <span>{t('hero.trust2')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Zap className="h-4 w-4 text-primary" />
-            <span>Fast Processing</span>
+            <span>{t('hero.trust3')}</span>
           </div>
           <div className="flex items-center gap-2">
             <Smartphone className="h-4 w-4 text-primary" />
-            <span>All Devices</span>
+            <span>{t('hero.trust4')}</span>
           </div>
         </div>
-
       </div>
     </section>
   );
-            }
+      }
