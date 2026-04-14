@@ -76,10 +76,8 @@ export function Header() {
       if (outcome === 'accepted') setIsInstallable(false);
       setDeferredPrompt(null);
     } else {
-      // On iOS or browsers without beforeinstallprompt, guide user
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
       if (isIOS) {
-        // iOS Safari: use share > Add to Home Screen
         import('sonner').then(({ toast }) => {
           toast.info('To install NoMark on iOS:', {
             description: 'Tap the Share button (↑) then "Add to Home Screen"',
@@ -87,7 +85,6 @@ export function Header() {
           });
         });
       } else {
-        // Android/Desktop Chrome: use menu > Install App
         import('sonner').then(({ toast }) => {
           toast.info('To install NoMark:', {
             description: 'Tap ⋮ menu → "Install App" or "Add to Home Screen"',
@@ -102,7 +99,7 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/30 bg-background/60 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2.5 group">
-          <NoMarkLogo className="h-9 w-9 rounded-xl transition-all group-hover:scale-105" />
+          <NoMarkLogo className="h-9 w-9 transition-all group-hover:scale-105" />
           <span className="text-xl font-bold tracking-tight text-foreground">
             No<span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[hsl(var(--chart-2))]">Mark</span>
           </span>
@@ -127,7 +124,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Language Dropdown */}
           <div className="relative" ref={langRef}>
             <Button
               variant="ghost"
@@ -214,4 +210,4 @@ export function Header() {
       )}
     </header>
   );
-}
+                                                                                        }
