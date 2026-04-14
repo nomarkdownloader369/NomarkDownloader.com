@@ -38,8 +38,7 @@ export function Footer() {
               <li><Link to="/#how-it-works" className="hover:text-primary transition-colors">{t('nav.howItWorks')}</Link></li>
               <li><Link to="/#faq" className="hover:text-primary transition-colors">{t('nav.faq')}</Link></li>
               <li><Link to="/blog" className="hover:text-primary transition-colors">{t('nav.blog')}</Link></li>
-              {/* 🔥 هنا تم إصلاح كلمة About Us وربطها بالترجمة */}
-              <li><Link to="/about" className="hover:text-primary transition-colors">{t('footer.aboutUs', 'About Us')}</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">{t('footer.aboutUs')}</Link></li>
               <li><Link to="/contact" className="hover:text-primary transition-colors">{t('footer.contactUs')}</Link></li>
             </ul>
           </div>
@@ -66,4 +65,4 @@ export function Footer() {
       </div>
     </footer>
   );
-              }
+                    }
