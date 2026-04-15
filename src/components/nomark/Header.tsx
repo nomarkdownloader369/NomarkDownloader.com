@@ -1,19 +1,17 @@
-import { Menu, Smartphone, Globe, ChevronDown } from "lucide-react";
+import { Menu, Smartphone, ChevronDown } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { NoMarkLogo } from "./NoMarkLogo";
 
-const languages = [
+const languages =[
   { code: 'en', label: 'English', flag: '🇺🇸' },
   { code: 'ar', label: 'العربية', flag: '🇸🇦' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'es', label: 'Español', flag: '🇪🇸' },
   { code: 'tr', label: 'Türkçe', flag: '🇹🇷' },
 ];
-
-const rtlLanguages = ['ar'];
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -24,9 +22,8 @@ export function Header() {
   const { t, i18n } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isInstallable, setIsInstallable] = useState(false);
-  const [isInstalled, setIsInstalled] = useState(false);
+  const[deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const[isInstalled, setIsInstalled] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
   const currentLang = languages.find(l => l.code === i18n.language) || languages[0];
@@ -44,54 +41,60 @@ export function Header() {
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  },[]);
 
   useEffect(() => {
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    // التحقق مما إذا كان التطبيق مثبتاً بالفعل
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true;
+    if (isStandalone) {
       setIsInstalled(true);
       return;
     }
+
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      setIsInstallable(true);
     };
+
     const handleAppInstalled = () => {
       setIsInstalled(true);
-      setIsInstallable(false);
       setDeferredPrompt(null);
     };
+
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     window.addEventListener('appinstalled', handleAppInstalled);
+
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       window.removeEventListener('appinstalled', handleAppInstalled);
     };
-  }, []);
+  },[]);
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
+      // إظهار نافذة التثبيت الحقيقية
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') setIsInstallable(false);
+      if (outcome === 'accepted') {
+        setIsInstalled(true);
+      }
       setDeferredPrompt(null);
     } else {
-      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      if (isIOS) {
-        import('sonner').then(({ toast }) => {
-          toast.info('To install NoMark on iOS:', {
-            description: 'Tap the Share button (↑) then "Add to Home Screen"',
-            duration: 6000,
+      // في حال كان المتصفح لا يدعم التثبيت المباشر (مثل الآيفون)
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      import('sonner').then(({ toast }) => {
+        if (isIOS) {
+          toast.info(t('install.iosTitle', 'لتثبيت التطبيق على آيفون:'), {
+            description: t('install.iosDesc', 'اضغط على زر المشاركة (↑) بالأسفل ثم اختر "إضافة إلى الشاشة الرئيسية"'),
+            duration: 7000,
           });
-        });
-      } else {
-        import('sonner').then(({ toast }) => {
-          toast.info('To install NoMark:', {
-            description: 'Tap ⋮ menu → "Install App" or "Add to Home Screen"',
-            duration: 6000,
+        } else {
+          toast.info(t('install.androidTitle', 'لتثبيت التطبيق:'), {
+            description: t('install.androidDesc', 'اضغط على خيارات المتصفح (⋮) ثم اختر "تثبيت التطبيق" أو "إضافة للشاشة الرئيسية"'),
+            duration: 7000,
           });
-        });
-      }
+        }
+      });
     }
   };
 
@@ -160,7 +163,7 @@ export function Header() {
               className="hidden sm:flex items-center gap-2 bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground hover:opacity-90 transition-opacity rounded-full px-4"
             >
               <img src="/icons/icon-192.png" alt="NoMark" className="h-4 w-4 rounded-sm" />
-              <span className="text-sm font-medium">{t('nav.installApp')}</span>
+              <span className="text-sm font-medium">{t('nav.installApp', 'Install App')}</span>
             </Button>
           )}
 
@@ -169,7 +172,7 @@ export function Header() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            <span className="text-sm font-semibold text-primary">{t('nav.downloads')}</span>
+            <span className="text-sm font-semibold text-primary">{t('nav.downloads', 'Downloads')}</span>
           </div>
 
           <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -187,7 +190,7 @@ export function Header() {
                 className="mb-2 flex items-center justify-center gap-2 bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground hover:opacity-90 transition-opacity rounded-lg py-3"
               >
                 <Smartphone className="h-4 w-4" />
-                <span className="text-sm font-medium">{t('nav.installApp')}</span>
+                <span className="text-sm font-medium">{t('nav.installApp', 'Install App')}</span>
               </Button>
             )}
             <Link to="/#features" className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-lg hover:bg-card/50" onClick={() => setIsMobileMenuOpen(false)}>
@@ -210,4 +213,4 @@ export function Header() {
       )}
     </header>
   );
-                                                                                        }
+}
