@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     
-    <!-- السطر السري الذي كان مفقوداً لربط التطبيق ⬇️ -->
+    <!-- ربط التطبيق بملف التثبيت -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#10b981" />
-    <!-- ========================================= -->
 
     <title>NoMark - Download TikTok Videos Without Watermark | Free HD Downloader</title>
     <meta name="description" content="Download TikTok videos without watermark in HD quality. Free, fast, no signup required. Works on iPhone, Android, and desktop." />
@@ -50,10 +49,13 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     
+    <!-- هذا هو الكود السحري الذي يطلبه جوجل كروم لإظهار زر التثبيت -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js');
+          navigator.serviceWorker.register('/sw.js').catch(() => {
+            console.log('Service Worker registration skipped or failed, but app will still load.');
+          });
         });
       }
     </script>
