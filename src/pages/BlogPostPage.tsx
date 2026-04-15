@@ -111,11 +111,13 @@ export default function BlogPostPage() {
             </div>
           </div>
 
-          {/* صورة */}
-          <div className="aspect-video rounded-2xl bg-gradient-to-br from-primary/20 to-[hsl(var(--chart-2))]/20 mb-8 flex items-center justify-center">
-            <span className="text-sm font-bold uppercase tracking-wider text-primary/60">
-              {post.category}
-            </span>
+          {/* 🔥 صورة المقال التي تم تعديلها */}
+          <div className="aspect-video rounded-2xl bg-gradient-to-br from-primary/20 to-[hsl(var(--chart-2))]/20 mb-8 flex items-center justify-center overflow-hidden border border-border">
+            <img 
+              src="/og-image.jpg" 
+              alt={t(post.titleKey)} 
+              className="w-full h-full object-cover"
+            />
           </div>
 
           {/* 🔥 المحتوى (SEO مهم) */}
@@ -191,4 +193,4 @@ export default function BlogPostPage() {
       <Footer />
     </div>
   );
-          }
+                }
