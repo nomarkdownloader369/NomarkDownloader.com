@@ -21,48 +21,94 @@ export default function Index() {
   const [videoData, setVideoData] = useState<VideoInfo | null>(null);
   const [error, setError] = useState<string | undefined>();
 
+  // ✅ النسخة القوية (لا تنهار بسهولة)
   const handleAnalyze = async (url: string) => {
     setIsLoading(true);
     setError(undefined);
     setVideoData(null);
 
-    try {
-      // ✅ المحاولة الأولى: Supabase (كما هو عندك)
-      const { data, error: fnError } = await supabase.functions.invoke('analyze-video', {
+    const fetchWithTimeout = async (url: string, ms = 8000) => {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), ms);
+
+      try {
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
+        return res;
+      } catch (err) {
+        clearTimeout(timeout);
+        throw err;
+      }
+    };
+
+    const trySupabase = async () => {
+      const { data, error } = await supabase.functions.invoke("analyze-video", {
         body: { url },
       });
 
-      if (!fnError && data?.success) {
-        setVideoData(data.data);
-        return;
+      if (error || !data?.success) throw new Error("Supabase failed");
+      return data.data;
+    };
+
+    const tryTikwm = async () => {
+      const res = await fetchWithTimeout(
+        `https://tikwm.com/api/?url=${encodeURIComponent(url)}`
+      );
+
+      const data = await res.json();
+
+      if (!data || !data.data) throw new Error("tikwm failed");
+
+      return {
+        title: data.data.title,
+        author: data.data.author?.nickname,
+        thumbnail: data.data.cover,
+        duration: data.data.duration,
+        downloadUrl: data.data.play,
+        hdUrl: data.data.hdplay || data.data.play,
+      };
+    };
+
+    const trySaveTik = async () => {
+      const res = await fetchWithTimeout(
+        `https://api.savetik.co/video-info?url=${encodeURIComponent(url)}`
+      );
+
+      const data = await res.json();
+
+      if (!data || !data.video) throw new Error("savetik failed");
+
+      return {
+        title: data.video.title,
+        author: data.video.author,
+        thumbnail: data.video.thumbnail,
+        duration: data.video.duration,
+        downloadUrl: data.video.play,
+        hdUrl: data.video.hd,
+      };
+    };
+
+    const retry = async (fn: () => Promise<any>, times = 2) => {
+      for (let i = 0; i < times; i++) {
+        try {
+          return await fn();
+        } catch (err) {
+          if (i === times - 1) throw err;
+        }
       }
+    };
 
-      // 🔥 fallback تلقائي (بدون ما يحس المستخدم)
-      console.log("Supabase failed → using backup API");
+    try {
+      const result =
+        await retry(trySupabase).catch(() =>
+        retry(tryTikwm).catch(() =>
+        retry(trySaveTik)
+      ));
 
-      const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}`);
-      const backup = await res.json();
-
-      if (backup && backup.data) {
-        setVideoData({
-          title: backup.data.title || "Video",
-          thumbnail: backup.data.cover,
-          duration: backup.data.duration || 0,
-          links: {
-            noWatermark: backup.data.play,
-            hd: backup.data.hdplay || backup.data.play,
-            watermark: backup.data.wmplay
-          }
-        });
-        return;
-      }
-
-      // ❌ إذا كل شيء فشل
-      setError("All servers failed. Please try again.");
-
+      setVideoData(result);
     } catch (err) {
-      console.error(err);
-      setError("Network error. Please check your connection.");
+      console.error("All APIs failed:", err);
+      setError("All servers are busy. Try again in a moment.");
     } finally {
       setIsLoading(false);
     }
@@ -76,19 +122,19 @@ export default function Index() {
   const lang = i18n.language;
 
   const titles: Record<string, string> = {
-    en: 'NoMark - TikTok & Instagram Downloader No Watermark | Free HD',
-    ar: 'NoMark - تحميل فيديوهات تيك توك وإنستغرام بدون علامة مائية | HD مجاني',
-    fr: 'NoMark - Télécharger TikTok & Instagram Sans Filigrane',
-    es: 'NoMark - Descargar TikTok & Instagram Sin Marca de Agua',
-    tr: 'NoMark - TikTok & Instagram İndirici Filigransız',
+    en: "NoMark - TikTok & Instagram Downloader No Watermark | Free HD",
+    ar: "NoMark - تحميل فيديوهات تيك توك وإنستغرام بدون علامة مائية | HD مجاني",
+    fr: "NoMark - Télécharger TikTok & Instagram Sans Filigrane",
+    es: "NoMark - Descargar TikTok & Instagram Sin Marca de Agua",
+    tr: "NoMark - TikTok & Instagram İndirici Filigransız",
   };
 
   const descriptions: Record<string, string> = {
-    en: 'Download TikTok and Instagram videos without watermark in HD. Fast, free, no signup.',
-    ar: 'حمل فيديوهات تيك توك وإنستغرام بدون علامة مائية بجودة HD. سريع ومجاني وبدون تسجيل.',
-    fr: 'Téléchargez vidéos TikTok et Instagram sans filigrane en HD. Gratuit et rapide.',
-    es: 'Descarga vídeos de TikTok e Instagram sin marca de agua en HD. Gratis y rápido.',
-    tr: 'TikTok ve Instagram videolarını filigransız HD kalitede indir. Ücretsiz ve hızlı.',
+    en: "Download TikTok and Instagram videos without watermark in HD. Fast, free, no signup.",
+    ar: "حمل فيديوهات تيك توك وإنستغرام بدون علامة مائية بجودة HD. سريع ومجاني وبدون تسجيل.",
+    fr: "Téléchargez vidéos TikTok et Instagram sans filigrane en HD. Gratuit et rapide.",
+    es: "Descarga vídeos de TikTok e Instagram sin marca de agua en HD. Gratis y rápido.",
+    tr: "TikTok ve Instagram videolarını filigransız HD kalitede indir. Ücretsiz ve hızlı.",
   };
 
   return (
@@ -96,7 +142,10 @@ export default function Index() {
       <Helmet>
         <title>{titles[lang] || titles.en}</title>
         <meta name="description" content={descriptions[lang] || descriptions.en} />
-        <meta name="keywords" content="tiktok downloader, instagram downloader, no watermark, تحميل تيك توك, تحميل انستغرام بدون علامة مائية" />
+        <meta
+          name="keywords"
+          content="tiktok downloader, instagram downloader, no watermark, تحميل تيك توك, تحميل انستغرام بدون علامة مائية"
+        />
 
         <link rel="canonical" href="https://nomarkdownloader.com/" />
         <meta property="og:title" content="NoMark - TikTok & Instagram Downloader No Watermark" />
@@ -111,16 +160,21 @@ export default function Index() {
           onAnalyze={handleAnalyze}
           isLoading={isLoading}
           error={error}
-          resultSlot={videoData ? (
-            <div key={videoData.title + videoData.duration} className="mt-6 result-card-enter">
-              <ResultSection videoData={videoData} onClose={handleClose} />
-            </div>
-          ) : undefined}
+          resultSlot={
+            videoData ? (
+              <div key={videoData.title + videoData.duration} className="mt-6 result-card-enter">
+                <ResultSection videoData={videoData} onClose={handleClose} />
+              </div>
+            ) : undefined
+          }
         />
 
         <div className="px-4 py-6 text-center">
-          <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium">
-            {t('nav.blog')} →
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium"
+          >
+            {t("nav.blog")} →
           </Link>
         </div>
 
