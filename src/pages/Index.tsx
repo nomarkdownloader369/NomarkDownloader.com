@@ -18,16 +18,17 @@ import { supabase } from "@/integrations/supabase/client";
 export default function Index() {
   const { t, i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const [videoData, setVideoData] = useState<VideoInfo | null>(null);
+  const[videoData, setVideoData] = useState<VideoInfo | null>(null);
   const [error, setError] = useState<string | undefined>();
 
-  // ✅ النسخة القوية (لا تنهار بسهولة)
+  // ✅ النسخة القوية جداً (لا تنهار، تدعم HD الحقيقي، ولا تقطع التحميل)
   const handleAnalyze = async (url: string) => {
     setIsLoading(true);
     setError(undefined);
     setVideoData(null);
 
-    const fetchWithTimeout = async (url: string, ms = 8000) => {
+    // تم زيادة الوقت إلى 15 ثانية لأن سيرفرات HD تحتاج وقتاً أطول للتجميع ولا يجب أن نميت الاتصال
+    const fetchWithTimeout = async (url: string, ms = 15000) => {
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), ms);
 
@@ -41,18 +42,32 @@ export default function Index() {
       }
     };
 
+    // دالة ذكية لإجبار الروابط أن تكون آمنة (https) حتى لا يمنع المتصفح التحميل
+    const ensureHttps = (link: string | undefined) => {
+      if (!link) return "";
+      return link.replace(/^http:\/\//i, "https://");
+    };
+
     const trySupabase = async () => {
       const { data, error } = await supabase.functions.invoke("analyze-video", {
         body: { url },
       });
 
       if (error || !data?.success) throw new Error("Supabase failed");
-      return data.data;
+      
+      // تأمين الروابط القادمة من السيرفر الخاص بك
+      return {
+        ...data.data,
+        thumbnail: ensureHttps(data.data.thumbnail),
+        downloadUrl: ensureHttps(data.data.downloadUrl),
+        hdUrl: ensureHttps(data.data.hdUrl),
+      };
     };
 
     const tryTikwm = async () => {
+      // تمت إضافة &hd=1 لإجبار السيرفر على إرجاع فيديو HD حقيقي وعدم الفشل
       const res = await fetchWithTimeout(
-        `https://tikwm.com/api/?url=${encodeURIComponent(url)}`
+        `https://tikwm.com/api/?url=${encodeURIComponent(url)}&hd=1`
       );
 
       const data = await res.json();
@@ -60,12 +75,12 @@ export default function Index() {
       if (!data || !data.data) throw new Error("tikwm failed");
 
       return {
-        title: data.data.title,
-        author: data.data.author?.nickname,
-        thumbnail: data.data.cover,
-        duration: data.data.duration,
-        downloadUrl: data.data.play,
-        hdUrl: data.data.hdplay || data.data.play,
+        title: data.data.title || "TikTok Video",
+        author: data.data.author?.nickname || "User",
+        thumbnail: ensureHttps(data.data.cover),
+        duration: data.data.duration || 0,
+        downloadUrl: ensureHttps(data.data.play),
+        hdUrl: ensureHttps(data.data.hdplay || data.data.play), // ضمان وجود رابط دائماً
       };
     };
 
@@ -79,21 +94,24 @@ export default function Index() {
       if (!data || !data.video) throw new Error("savetik failed");
 
       return {
-        title: data.video.title,
-        author: data.video.author,
-        thumbnail: data.video.thumbnail,
-        duration: data.video.duration,
-        downloadUrl: data.video.play,
-        hdUrl: data.video.hd,
+        title: data.video.title || "TikTok Video",
+        author: data.video.author || "User",
+        thumbnail: ensureHttps(data.video.thumbnail),
+        duration: data.video.duration || 0,
+        downloadUrl: ensureHttps(data.video.play),
+        hdUrl: ensureHttps(data.video.hd || data.video.play),
       };
     };
 
-    const retry = async (fn: () => Promise<any>, times = 2) => {
+    // رفعنا عدد المحاولات إلى 3 بدلاً من 2 لضمان نجاح جلب البيانات
+    const retry = async (fn: () => Promise<any>, times = 3) => {
       for (let i = 0; i < times; i++) {
         try {
           return await fn();
         } catch (err) {
           if (i === times - 1) throw err;
+          // انتظار نصف ثانية قبل المحاولة مجدداً لكي لا نحظر من الـ API
+          await new Promise(resolve => setTimeout(resolve, 500));
         }
       }
     };
@@ -189,4 +207,4 @@ export default function Index() {
       <AdBanner />
     </div>
   );
-    }
+      }
