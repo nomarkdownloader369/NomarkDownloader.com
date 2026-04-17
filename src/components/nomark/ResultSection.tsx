@@ -13,25 +13,23 @@ interface ResultSectionProps {
 export function ResultSection({ videoData, onClose }: ResultSectionProps) {
   const { t } = useTranslation();
   const [isDownloadingStandard, setIsDownloadingStandard] = useState(false);
-  const [isDownloadingPremium, setIsDownloadingPremium] = useState(false);
+  const[isDownloadingPremium, setIsDownloadingPremium] = useState(false);
   const [showAdModal, setShowAdModal] = useState(false);
   const [adProgress, setAdProgress] = useState(0);
   const [downloadComplete, setDownloadComplete] = useState<"standard" | "premium" | null>(null);
   const [downloadError, setDownloadError] = useState<string | null>(null);
 
+  // ✅ النسخة الإجبارية الخارقة لتحميل الفيديو (3 طبقات حماية حتى لا تفشل أبداً)
   const forceDownload = async (url: string, filename: string): Promise<boolean> => {
+    if (!url) throw new Error("URL is missing");
+
     try {
+      // 1. المحاولة الأولى: عبر خادمك (Supabase)
       const { data, error } = await supabase.functions.invoke('download-video', {
         body: { url },
       });
       
-      if (error || !data) {
-        window.open(url, '_blank');
-        return true;
-      }
-
-      // If we get a proxied URL back, use it
-      if (data.downloadUrl) {
+      if (!error && data?.downloadUrl) {
         const link = document.createElement('a');
         link.href = data.downloadUrl;
         link.download = filename;
@@ -41,24 +39,59 @@ export function ResultSection({ videoData, onClose }: ResultSectionProps) {
         setTimeout(() => document.body.removeChild(link), 100);
         return true;
       }
-
-      window.open(url, '_blank');
-      return true;
-    } catch {
-      window.open(url, '_blank');
-      return true;
+    } catch (e) {
+      console.log("Supabase route failed, trying direct fetch...");
     }
+
+    try {
+      // 2. المحاولة الثانية: سحب الفيديو كـ Blob مباشرة (هذا يتخطى حظر CORS في العديد من السيرفرات)
+      const response = await fetch(url);
+      if (response.ok) {
+        const blob = await response.blob();
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        setTimeout(() => {
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(blobUrl);
+        }, 500);
+        return true;
+      }
+    } catch (e) {
+      console.log("Blob fetch blocked, using fallback...");
+    }
+
+    // 3. المحاولة الثالثة والنهائية: إجبار المتصفح على تحميل الرابط الأصلي مباشرة كأنه ملف
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.download = filename;
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => document.body.removeChild(link), 100);
+    return true;
   };
 
   const handleDownloadStandard = async () => {
     setIsDownloadingStandard(true);
     setDownloadError(null);
     try {
-      const filename = `nomark_${videoData.platform}_${Date.now()}.mp4`;
-      await forceDownload(videoData.downloadUrls.standard, filename);
+      const filename = `nomark_${videoData.platform || 'video'}_${Date.now()}.mp4`;
+      
+      // ✅ الحل السحري لتجنب خطأ undefined
+      // نبحث عن الرابط بصيغتين لتوافق تام مع ملف Index.tsx
+      const targetUrl = (videoData as any).downloadUrls?.standard || (videoData as any).downloadUrl;
+      
+      if (!targetUrl) throw new Error("Link not found");
+
+      await forceDownload(targetUrl, filename);
       setDownloadComplete("standard");
       setTimeout(() => setDownloadComplete(null), 3000);
-    } catch {
+    } catch (err) {
       setDownloadError("Download failed. Please try again.");
     } finally {
       setIsDownloadingStandard(false);
@@ -69,21 +102,29 @@ export function ResultSection({ videoData, onClose }: ResultSectionProps) {
     setShowAdModal(true);
     setAdProgress(0);
     setDownloadError(null);
+    
     const interval = setInterval(() => {
       setAdProgress((prev) => {
         if (prev >= 100) { clearInterval(interval); return 100; }
         return prev + 10;
       });
     }, 500);
+
     setTimeout(async () => {
       setShowAdModal(false);
       setIsDownloadingPremium(true);
       try {
-        const filename = `nomark_hd_${videoData.platform}_${Date.now()}.mp4`;
-        await forceDownload(videoData.downloadUrls.hd, filename);
+        const filename = `nomark_hd_${videoData.platform || 'video'}_${Date.now()}.mp4`;
+        
+        // ✅ الحل السحري لرابط الـ HD 
+        const targetUrl = (videoData as any).downloadUrls?.hd || (videoData as any).hdUrl;
+
+        if (!targetUrl) throw new Error("HD Link not found");
+
+        await forceDownload(targetUrl, filename);
         setDownloadComplete("premium");
         setTimeout(() => setDownloadComplete(null), 3000);
-      } catch {
+      } catch (err) {
         setDownloadError("HD Download failed. Please try again.");
       } finally {
         setIsDownloadingPremium(false);
@@ -123,13 +164,13 @@ export function ResultSection({ videoData, onClose }: ResultSectionProps) {
                       </div>
                     </div>
                     <div className="absolute bottom-2 right-2 rounded-md bg-background/80 backdrop-blur-sm px-1.5 py-0.5 text-[10px] sm:text-xs font-medium text-foreground">{videoData.duration}</div>
-                    <div className="absolute top-2 left-2 rounded-md bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] px-1.5 py-0.5 text-[10px] sm:text-xs font-bold text-primary-foreground capitalize">{videoData.platform}</div>
+                    <div className="absolute top-2 left-2 rounded-md bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] px-1.5 py-0.5 text-[10px] sm:text-xs font-bold text-primary-foreground capitalize">{videoData.platform || 'tiktok'}</div>
                   </div>
                   <div className="flex flex-1 flex-col justify-center min-w-0">
                     <h4 className="font-semibold text-foreground line-clamp-2 text-sm sm:text-base leading-snug">{videoData.title}</h4>
                     <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-primary font-medium">@{videoData.author}</p>
                     <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-muted-foreground">
-                      <span className="flex items-center gap-1 bg-card/50 px-2 py-1 rounded-full"><Eye className="h-3 w-3" />{videoData.views} {t('result.views')}</span>
+                      <span className="flex items-center gap-1 bg-card/50 px-2 py-1 rounded-full"><Eye className="h-3 w-3" />{videoData.views || '0'} {t('result.views')}</span>
                       <span className="flex items-center gap-1 bg-card/50 px-2 py-1 rounded-full"><Clock className="h-3 w-3" />{videoData.duration}</span>
                     </div>
                   </div>
