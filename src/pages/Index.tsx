@@ -27,23 +27,42 @@ export default function Index() {
     setVideoData(null);
 
     try {
+      // ✅ المحاولة الأولى: Supabase (كما هو عندك)
       const { data, error: fnError } = await supabase.functions.invoke('analyze-video', {
         body: { url },
       });
 
-      if (fnError) {
-        setError("Failed to analyze video. Please try again.");
+      if (!fnError && data?.success) {
+        setVideoData(data.data);
         return;
       }
 
-      if (!data.success) {
-        setError(data.error || "Failed to analyze video. Please try again.");
+      // 🔥 fallback تلقائي (بدون ما يحس المستخدم)
+      console.log("Supabase failed → using backup API");
+
+      const res = await fetch(`https://tikwm.com/api/?url=${encodeURIComponent(url)}`);
+      const backup = await res.json();
+
+      if (backup && backup.data) {
+        setVideoData({
+          title: backup.data.title || "Video",
+          thumbnail: backup.data.cover,
+          duration: backup.data.duration || 0,
+          links: {
+            noWatermark: backup.data.play,
+            hd: backup.data.hdplay || backup.data.play,
+            watermark: backup.data.wmplay
+          }
+        });
         return;
       }
 
-      setVideoData(data.data);
-    } catch {
-      setError("Network error. Please check your connection and try again.");
+      // ❌ إذا كل شيء فشل
+      setError("All servers failed. Please try again.");
+
+    } catch (err) {
+      console.error(err);
+      setError("Network error. Please check your connection.");
     } finally {
       setIsLoading(false);
     }
