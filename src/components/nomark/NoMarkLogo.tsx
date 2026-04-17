@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import logo from "../assets/logo.png";
+import logo from "@/assets/logo.png";
 
 export function NoMarkLogo({ className }: { className?: string }) {
   return (
