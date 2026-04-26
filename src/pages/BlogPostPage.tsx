@@ -9,7 +9,6 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useTranslation();
-
   const post = blogPosts.find((p) => p.slug === slug);
 
   if (!post) {
@@ -18,9 +17,7 @@ export default function BlogPostPage() {
         <Header />
         <main className="pt-24 pb-16 px-4 text-center">
           <h1 className="text-2xl font-bold text-foreground">Post not found</h1>
-          <Link to="/blog" className="text-primary mt-4 inline-block hover:underline">
-            ← Back to Blog
-          </Link>
+          <Link to="/blog" className="text-primary mt-4 inline-block hover:underline">← Back to Blog</Link>
         </main>
         <Footer />
       </div>
@@ -33,164 +30,58 @@ export default function BlogPostPage() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        {/* 🔥 SEO أقوى */}
         <title>{t(post.titleKey)} | NoMark Downloader</title>
         <meta name="description" content={t(post.excerptKey)} />
         <meta name="keywords" content="tiktok downloader, no watermark, download video hd, instagram downloader, free video downloader" />
-
         <link rel="canonical" href={postUrl} />
-
-        {/* Open Graph */}
         <meta property="og:title" content={t(post.titleKey)} />
         <meta property="og:description" content={t(post.excerptKey)} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={postUrl} />
         <meta property="og:image" content="https://nomarkdownloader.com/og-image.jpg" />
-
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={t(post.titleKey)} />
-        <meta name="twitter:description" content={t(post.excerptKey)} />
-        <meta name="twitter:image" content="https://nomarkdownloader.com/og-image.jpg" />
-
-        {/* 🔥 Structured Data (مهم جداً) */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Article",
             headline: t(post.titleKey),
             description: t(post.excerptKey),
-            author: {
-              "@type": "Organization",
-              name: "NoMark"
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "NoMark",
-              logo: {
-                "@type": "ImageObject",
-                url: "https://nomarkdownloader.com/favicon.png"
-              }
-            },
+            author: { "@type": "Organization", name: "NoMark" },
+            publisher: { "@type": "Organization", name: "NoMark", logo: { "@type": "ImageObject", url: "https://nomarkdownloader.com/favicon.png" } },
             datePublished: post.date,
             mainEntityOfPage: postUrl
           })}
         </script>
       </Helmet>
-
       <Header />
-
       <main className="pt-24 pb-16 px-4">
         <article className="mx-auto max-w-3xl">
-
-          {/* زر الرجوع */}
-          <Link
-            to="/blog"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-8 transition-colors"
-          >
+          <Link to="/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-8 transition-colors">
             <ArrowLeft className="h-4 w-4" /> {t('blog.backToBlog')}
           </Link>
-
-          {/* العنوان */}
           <div className="mb-6">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-4">
-              {post.category}
-            </span>
-
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight mb-4">
-              {t(post.titleKey)}
-            </h1>
-
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 mb-4">{post.category}</span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-foreground leading-tight mb-4">{t(post.titleKey)}</h1>
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="h-3.5 w-3.5" /> {post.date}
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-3.5 w-3.5" /> {post.readTime}
-              </span>
+              <span className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" /> {post.date}</span>
+              <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> {post.readTime}</span>
             </div>
           </div>
-
-          {/* 🔥 صورة المقال التي تم تعديلها */}
           <div className="aspect-video rounded-2xl bg-gradient-to-br from-primary/20 to-[hsl(var(--chart-2))]/20 mb-8 flex items-center justify-center overflow-hidden border border-border">
-            <img 
-              src="/og-image.jpg" 
-              alt={t(post.titleKey)} 
-              className="w-full h-full object-cover"
-            />
+            <img src="/og-image.jpg" alt={t(post.titleKey)} className="w-full h-full object-cover" />
           </div>
-
-          {/* 🔥 المحتوى (SEO مهم) */}
-          <div
-            className="prose prose-invert prose-sm sm:prose-base max-w-none
-            prose-headings:text-foreground prose-headings:font-bold
-            prose-p:text-muted-foreground prose-p:leading-relaxed
-            prose-strong:text-foreground
-            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-            prose-li:text-muted-foreground"
-          >
+          <div className="prose prose-invert prose-sm sm:prose-base max-w-none prose-headings:text-foreground prose-headings:font-bold prose-p:text-muted-foreground prose-p:leading-relaxed prose-strong:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-li:text-muted-foreground">
             <div dangerouslySetInnerHTML={{ __html: t(contentKey) }} />
           </div>
-
-          {/* 🔥 CTA أقوى */}
           <div className="mt-10 p-6 rounded-2xl bg-primary/5 border border-primary/20 text-center">
-            <h3 className="text-xl font-semibold text-foreground mb-2">
-              Download TikTok Videos Instantly
-            </h3>
-            <p className="text-sm text-muted-foreground mb-4">
-              Paste your video link and download without watermark — fast, free, and HD quality.
-            </p>
-
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground font-semibold text-sm hover:opacity-90 transition-all"
-            >
+            <h3 className="text-xl font-semibold text-foreground mb-2">Download TikTok Videos Instantly</h3>
+            <p className="text-sm text-muted-foreground mb-4">Paste your video link and download without watermark — fast, free, and HD quality.</p>
+            <Link to="/" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary to-[hsl(var(--chart-2))] text-primary-foreground font-semibold text-sm hover:opacity-90 transition-all">
               Download Now – No Watermark →
             </Link>
           </div>
-
-          {/* 🔥 Related Articles */}
-          <div className="mt-12 pt-8 border-t border-border">
-            <h3 className="text-lg font-semibold text-foreground mb-4">
-              Related Articles
-            </h3>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              {blogPosts
-                .filter((p) => p.slug !== slug)
-                .slice(0, 4)
-                .map((relatedPost) => (
-                  <Link
-                    key={relatedPost.slug}
-                    to={`/blog/${relatedPost.slug}`}
-                    className="group p-4 rounded-xl border border-border hover:border-primary/30 transition-colors"
-                  >
-                    <span className="text-[10px] font-medium uppercase tracking-wider text-primary/60">
-                      {relatedPost.category}
-                    </span>
-
-                    <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors mt-1 line-clamp-2">
-                      {t(relatedPost.titleKey)}
-                    </h4>
-                  </Link>
-                ))}
-            </div>
-          </div>
-
-          {/* رجوع */}
-          <div className="mt-8 pt-6 border-t border-border">
-            <Link
-              to="/blog"
-              className="inline-flex items-center gap-2 text-sm text-primary hover:underline font-medium"
-            >
-              <ArrowLeft className="h-4 w-4" /> {t('blog.backToBlog')}
-            </Link>
-          </div>
-
         </article>
       </main>
-
       <Footer />
     </div>
   );
-                }
+        }
