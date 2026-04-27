@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- الصفحات الأساسية -->
   <url>
     <loc>https://nomarkdownloader.com/</loc>
     <lastmod>2024-04-09</lastmod>
@@ -18,6 +19,32 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://nomarkdownloader.com/contact</loc>
+    <lastmod>2024-03-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/privacy</loc>
+    <lastmod>2024-03-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/terms</loc>
+    <lastmod>2024-03-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/dmca</loc>
+    <lastmod>2024-03-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- المقالات القديمة -->
   <url>
     <loc>https://nomarkdownloader.com/blog/how-to-download-tiktok-videos-without-watermark</loc>
     <lastmod>2024-03-15</lastmod>
@@ -55,27 +82,89 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nomarkdownloader.com/contact</loc>
-    <lastmod>2024-03-01</lastmod>
+    <loc>https://nomarkdownloader.com/blog/how-to-save-tiktok-sounds-as-mp3</loc>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nomarkdownloader.com/privacy</loc>
-    <lastmod>2024-03-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://nomarkdownloader.com/blog/tiktok-video-downloader-for-iphone-and-android</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nomarkdownloader.com/terms</loc>
-    <lastmod>2024-03-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://nomarkdownloader.com/blog/download-instagram-stories-without-login</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://nomarkdownloader.com/dmca</loc>
-    <lastmod>2024-03-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://nomarkdownloader.com/blog/why-nomark-is-the-best-video-downloader</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/download-tiktok-videos-without-app-installation</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/save-instagram-videos-to-camera-roll-guide</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/how-to-repost-tiktok-videos-without-watermark</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- المقالات الـ 7 الجديدة -->
+  <url>
+    <loc>https://nomarkdownloader.com/blog/how-to-download-tiktok-without-watermark-iphone-ios</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/best-tiktok-to-mp3-converter-high-quality</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/download-instagram-reels-with-audio-2026</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/remove-tiktok-watermark-online-free-no-app</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/save-tiktok-drafts-camera-roll-without-posting</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/why-tiktok-downloads-with-watermark-fixed</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nomarkdownloader.com/blog/top-secret-tools-video-editors-meme-creators</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
