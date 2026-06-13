@@ -19,14 +19,15 @@ const blogPosts =[
   { slug: "download-tiktok-videos-without-app-installation", titleKey: "blog.post11Title", excerptKey: "blog.post11Excerpt", date: "2026-04-05", readTime: "4 min", category: "TikTok" },
   { slug: "save-instagram-videos-to-camera-roll-guide", titleKey: "blog.post12Title", excerptKey: "blog.post12Excerpt", date: "2026-04-06", readTime: "5 min", category: "Instagram" },
   { slug: "how-to-repost-tiktok-videos-without-watermark", titleKey: "blog.post13Title", excerptKey: "blog.post13Excerpt", date: "2026-04-07", readTime: "6 min", category: "TikTok" },
-  // المقالات الـ 7 الجديدة
   { slug: "how-to-download-tiktok-without-watermark-iphone-ios", titleKey: "blog.post14Title", excerptKey: "blog.post14Excerpt", date: "2026-04-26", readTime: "6 min", category: "iOS Guide" },
   { slug: "best-tiktok-to-mp3-converter-high-quality", titleKey: "blog.post15Title", excerptKey: "blog.post15Excerpt", date: "2026-04-28", readTime: "5 min", category: "Audio" },
   { slug: "download-instagram-reels-with-audio-2026", titleKey: "blog.post16Title", excerptKey: "blog.post16Excerpt", date: "2026-04-30", readTime: "7 min", category: "Instagram" },
   { slug: "remove-tiktok-watermark-online-free-no-app", titleKey: "blog.post17Title", excerptKey: "blog.post17Excerpt", date: "2026-05-02", readTime: "4 min", category: "Tutorial" },
   { slug: "save-tiktok-drafts-camera-roll-without-posting", titleKey: "blog.post18Title", excerptKey: "blog.post18Excerpt", date: "2026-05-04", readTime: "8 min", category: "TikTok Tricks" },
   { slug: "why-tiktok-downloads-with-watermark-fixed", titleKey: "blog.post19Title", excerptKey: "blog.post19Excerpt", date: "2026-05-06", readTime: "6 min", category: "Troubleshooting" },
-  { slug: "top-secret-tools-video-editors-meme-creators", titleKey: "blog.post20Title", excerptKey: "blog.post20Excerpt", date: "2026-05-08", readTime: "9 min", category: "Creator Tools" }
+  { slug: "top-secret-tools-video-editors-meme-creators", titleKey: "blog.post20Title", excerptKey: "blog.post20Excerpt", date: "2026-05-08", readTime: "9 min", category: "Creator Tools" },
+  // 🔥 مقال الذكاء الاصطناعي الجديد 🔥
+  { slug: "how-ai-is-changing-video-editing", titleKey: "blog.post21Title", excerptKey: "blog.post21Excerpt", date: "2026-06-14", readTime: "5 min", category: "AI & Tech" }
 ];
 
 export { blogPosts };
@@ -72,4 +73,4 @@ export default function BlogPage() {
       <Footer />
     </div>
   );
-  }
+   }
