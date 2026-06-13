@@ -147,12 +147,13 @@ export default function Index() {
     tr: "NoMark - TikTok & Instagram İndirici Filigransız",
   };
 
+  // 🔥 هنا التعديل السحري للذكاء الاصطناعي (مترجم بـ 5 لغات للسيو) 🔥
   const descriptions: Record<string, string> = {
-    en: "Download TikTok and Instagram videos without watermark in HD. Fast, free, no signup.",
-    ar: "حمل فيديوهات تيك توك وإنستغرام بدون علامة مائية بجودة HD. سريع ومجاني وبدون تسجيل.",
-    fr: "Téléchargez vidéos TikTok et Instagram sans filigrane en HD. Gratuit et rapide.",
-    es: "Descarga vídeos de TikTok e Instagram sin marca de agua en HD. Gratis y rápido.",
-    tr: "TikTok ve Instagram videolarını filigransız HD kalitede indir. Ücretsiz ve hızlı.",
+    en: "Smart AI-Powered Link Detection: Download TikTok and Instagram videos without watermark in pure HD. Fast, free, no signup.",
+    ar: "اكتشاف ذكي للروابط بالذكاء الاصطناعي: حمل فيديوهات تيك توك وإنستغرام بدون علامة مائية بجودة HD نقية. مجاني وبدون تسجيل.",
+    fr: "Détection intelligente par IA : Téléchargez des vidéos TikTok et Instagram sans filigrane en pure HD. Gratuit et rapide.",
+    es: "Detección inteligente de enlaces por IA: Descarga vídeos de TikTok e Instagram sin marca de agua en HD puro. Gratis y rápido.",
+    tr: "Akıllı Yapay Zeka Bağlantı Algılama: TikTok ve Instagram videolarını filigransız saf HD kalitesinde indirin. Ücretsiz ve hızlı.",
   };
 
   return (
@@ -207,4 +208,4 @@ export default function Index() {
       <AdBanner />
     </div>
   );
-        }
+      }
